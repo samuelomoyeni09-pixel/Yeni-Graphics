@@ -97,16 +97,39 @@ const statsObserver = new IntersectionObserver(entries => {
 const statBar = document.querySelector('.hero-stats');
 if (statBar) statsObserver.observe(statBar);
 
-/* ===== scroll reveal ===== */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting){
-      e.target.classList.add('in');
-      e.target.querySelectorAll('.bar i').forEach(bar => {
-        bar.style.width = bar.dataset.w;
-      });
-      io.unobserve(e.target);
-    }
+/* ===== scroll reveal (mobile-safe) =====
+   threshold:0 + rootMargin fires as soon as ANY part of the
+   element nears the screen — so it works even for very tall
+   sections. Fallbacks below guarantee nothing ever stays hidden. */
+const revealEls = document.querySelectorAll('.reveal');
+
+function revealEl(el){
+  el.classList.add('in');
+  el.querySelectorAll('.bar i').forEach(bar => {
+    bar.style.width = bar.dataset.w;
   });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+
+if ('IntersectionObserver' in window){
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        revealEl(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px 120px 0px' });
+
+  revealEls.forEach(el => io.observe(el));
+
+  /* safety net: if anything is still hidden after 3s
+     (e.g. observer never fired), just show it. */
+  setTimeout(() => {
+    revealEls.forEach(el => {
+      if (!el.classList.contains('in')) revealEl(el);
+    });
+  }, 3000);
+} else {
+  /* very old browser: no observer — show everything now */
+  revealEls.forEach(revealEl);
+}
