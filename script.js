@@ -97,19 +97,14 @@ const statsObserver = new IntersectionObserver(entries => {
 const statBar = document.querySelector('.hero-stats');
 if (statBar) statsObserver.observe(statBar);
 
-/* ===== scroll reveal (mobile-safe) =====
-   threshold:0 + rootMargin fires as soon as ANY part of the
-   element nears the screen — so it works even for very tall
-   sections. Fallbacks below guarantee nothing ever stays hidden. */
+/* ===== scroll reveal (mobile-safe) ===== */
 const revealEls = document.querySelectorAll('.reveal');
-
 function revealEl(el){
   el.classList.add('in');
   el.querySelectorAll('.bar i').forEach(bar => {
     bar.style.width = bar.dataset.w;
   });
 }
-
 if ('IntersectionObserver' in window){
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -119,17 +114,76 @@ if ('IntersectionObserver' in window){
       }
     });
   }, { threshold: 0, rootMargin: '0px 0px 120px 0px' });
-
   revealEls.forEach(el => io.observe(el));
-
-  /* safety net: if anything is still hidden after 3s
-     (e.g. observer never fired), just show it. */
   setTimeout(() => {
     revealEls.forEach(el => {
       if (!el.classList.contains('in')) revealEl(el);
     });
   }, 3000);
 } else {
-  /* very old browser: no observer — show everything now */
   revealEls.forEach(revealEl);
 }
+
+/* =========================================================
+   ORDER FORM  ->  WhatsApp / Email
+   --- To change where orders go, edit the two lines below ---
+   ========================================================= */
+const WHATSAPP_NUMBER = '2348054965524';                 // your WhatsApp number, no + or spaces
+const ORDER_EMAIL     = 'samuelomoyeni.09@gmail.com';     // your email address
+
+const orderForm = document.getElementById('orderForm');
+
+function buildOrderMessage(){
+  const name    = document.getElementById('cName').value.trim();
+  const phone   = document.getElementById('cPhone').value.trim();
+  const type    = document.getElementById('cType').value;
+  const pkg     = document.getElementById('cPackage').value;
+  const details = document.getElementById('cDetails').value.trim();
+  return "Hello Yeni Graphics! I'd like to order a design.\n\n"
+    + "Name: " + name + "\n"
+    + "Phone: " + phone + "\n"
+    + "Design type: " + type + "\n"
+    + "Package: " + pkg + "\n"
+    + "Details: " + (details || "-");
+}
+
+if (orderForm){
+  /* Submit -> open WhatsApp with the order pre-filled.
+     The browser checks required fields before this runs. */
+  orderForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const url = 'https://wa.me/' + WHATSAPP_NUMBER +
+                '?text=' + encodeURIComponent(buildOrderMessage());
+    window.open(url, '_blank');
+  });
+
+  /* "Send by email instead" link */
+  const emailLink = document.getElementById('emailInstead');
+  if (emailLink){
+    emailLink.addEventListener('click', e => {
+      e.preventDefault();
+      const name  = document.getElementById('cName').value.trim();
+      const phone = document.getElementById('cPhone').value.trim();
+      const type  = document.getElementById('cType').value;
+      if (!name || !phone || !type){
+        alert('Please fill in your name, phone number and design type first.');
+        return;
+      }
+      const subject = 'New design order from ' + name;
+      const url = 'mailto:' + ORDER_EMAIL +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body='    + encodeURIComponent(buildOrderMessage());
+      window.location.href = url;
+    });
+  }
+}
+
+/* Pricing buttons -> preselect package + scroll to the form */
+document.querySelectorAll('.price-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const sel = document.getElementById('cPackage');
+    if (sel) sel.value = btn.dataset.package;
+    const contact = document.getElementById('contact');
+    if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+  });
+});
