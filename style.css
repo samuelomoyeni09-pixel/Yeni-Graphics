@@ -38,6 +38,8 @@ img{max-width:100%;display:block;}
 .btn-coral:hover{transform:translateY(-3px);box-shadow:0 18px 34px -10px rgba(251,111,93,.85);}
 .btn-ink{background:var(--navy);color:#fff;}
 .btn-ink:hover{transform:translateY(-3px);background:var(--navy-deep);}
+.btn-ghost{background:transparent;color:var(--ink);border:1.6px solid rgba(22,24,36,.18);}
+.btn-ghost:hover{border-color:var(--ink);transform:translateY(-3px);}
 .btn-light{background:#fff;color:var(--ink);}
 .btn-light:hover{transform:translateY(-3px);box-shadow:0 16px 30px -12px rgba(0,0,0,.4);}
 
@@ -53,7 +55,7 @@ nav{
 .logo img{width:42px;height:42px;border-radius:50%;object-fit:cover;}
 .logo span{line-height:1;}
 .logo small{display:block;font-family:'Hanken Grotesk';font-weight:500;font-size:.66rem;letter-spacing:.22em;color:var(--ink-soft);text-transform:uppercase;margin-top:3px;}
-.nav-links{display:flex;align-items:center;gap:30px;}
+.nav-links{display:flex;align-items:center;gap:28px;}
 .nav-links a{font-weight:500;font-size:.95rem;color:var(--ink-soft);transition:color .2s;}
 .nav-links a:hover{color:var(--ink);}
 .nav-cta{display:flex;align-items:center;gap:14px;}
@@ -100,7 +102,6 @@ nav{
 }
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
 
-/* hero collage of real designs */
 .hero-collage{
   position:absolute;right:46px;bottom:54px;display:flex;gap:16px;align-items:flex-end;z-index:2;
 }
@@ -114,7 +115,6 @@ nav{
 .cc2{width:150px;height:200px;transform:rotate(3deg);}
 .cc3{width:118px;height:152px;transform:rotate(10deg);}
 
-/* floating stat bar */
 .hero-stats{
   margin:-42px 40px 0;position:relative;z-index:5;
   background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-sm);
@@ -157,9 +157,7 @@ section{padding:92px 0;}
 .filter-btn:hover{border-color:var(--ink);color:var(--ink);}
 .filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
 
-.gallery{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
-}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
 .g-card{
   position:relative;border-radius:18px;overflow:hidden;cursor:pointer;
   background:var(--cream-card);box-shadow:var(--shadow-sm);
@@ -198,8 +196,7 @@ section{padding:92px 0;}
 }
 .lb-close{
   position:absolute;top:22px;right:26px;width:46px;height:46px;border-radius:50%;
-  background:rgba(255,255,255,.14);color:#fff;border:none;font-size:1.4rem;cursor:pointer;
-  transition:.2s;
+  background:rgba(255,255,255,.14);color:#fff;border:none;font-size:1.4rem;cursor:pointer;transition:.2s;
 }
 .lb-close:hover{background:var(--coral);}
 .lb-nav{
@@ -235,8 +232,46 @@ section{padding:92px 0;}
 .svc-card h3{font-size:1.26rem;font-weight:700;margin-bottom:10px;}
 .svc-card p{font-size:.94rem;color:var(--ink-soft);line-height:1.6;}
 
+/* ---------- PRICING ---------- */
+.pricing{background:var(--cream);}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start;}
+.price-card{
+  background:var(--cream-card);border-radius:var(--radius);
+  padding:38px 30px;border:1px solid rgba(22,24,36,.07);
+  box-shadow:var(--shadow-sm);position:relative;transition:transform .3s ease;
+}
+.price-card:hover{transform:translateY(-6px);}
+.price-card.featured{background:var(--navy);color:#fff;box-shadow:var(--shadow);}
+.pop-badge{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:var(--coral);color:#fff;font-size:.7rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;border-radius:50px;white-space:nowrap;
+}
+.price-tier{
+  font-family:'Bricolage Grotesque';font-weight:700;font-size:1.05rem;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:10px;
+}
+.price-card.featured .price-tier{color:var(--coral);}
+.price-amount{
+  font-family:'Bricolage Grotesque';font-weight:700;font-size:2.8rem;
+  display:flex;align-items:baseline;line-height:1;
+}
+.price-amount .cur{font-size:1.5rem;margin-right:2px;}
+.price-amount small{font-family:'Hanken Grotesk';font-weight:500;font-size:.88rem;color:var(--ink-soft);margin-left:7px;}
+.price-card.featured .price-amount small{color:rgba(255,255,255,.6);}
+.price-desc{font-size:.92rem;color:var(--ink-soft);margin:10px 0 20px;}
+.price-card.featured .price-desc{color:rgba(255,255,255,.7);}
+.price-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:26px;}
+.price-list li{font-size:.93rem;padding-left:26px;position:relative;line-height:1.4;}
+.price-list li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--teal);font-weight:700;}
+.price-card.featured .price-list li::before{color:var(--coral);}
+.price-btn{width:100%;justify-content:center;}
+.price-card.featured .price-btn.btn-ghost{border-color:rgba(255,255,255,.35);color:#fff;}
+.price-note{text-align:center;margin-top:34px;color:var(--ink-soft);font-size:.98rem;}
+.price-note a{color:var(--coral-deep);font-weight:700;}
+
 /* ---------- ABOUT ---------- */
-.about{background:var(--cream);}
+.about{background:var(--cream-card);}
 .split{display:grid;grid-template-columns:.85fr 1.15fr;gap:54px;align-items:center;}
 .about-photo{
   position:relative;border-radius:var(--radius);overflow:hidden;
@@ -247,9 +282,7 @@ section{padding:92px 0;}
   content:"";position:absolute;left:0;right:0;bottom:0;height:38%;
   background:linear-gradient(to top,rgba(12,42,61,.85),transparent);
 }
-.about-badge{
-  position:absolute;left:20px;bottom:20px;z-index:2;color:#fff;
-}
+.about-badge{position:absolute;left:20px;bottom:20px;z-index:2;color:#fff;}
 .about-badge strong{font-family:'Bricolage Grotesque';font-size:1.3rem;font-weight:700;display:block;}
 .about-badge span{font-size:.86rem;color:rgba(255,255,255,.75);}
 .about-text h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:700;margin-bottom:18px;}
@@ -260,22 +293,43 @@ section{padding:92px 0;}
 .bar{height:8px;background:rgba(22,24,36,.09);border-radius:50px;overflow:hidden;}
 .bar i{display:block;height:100%;border-radius:50px;background:linear-gradient(90deg,var(--teal),var(--coral));width:0;transition:width 1.3s cubic-bezier(.5,0,.2,1);}
 
-/* ---------- CTA ---------- */
-.cta-wrap{padding:30px 24px 96px;}
-.cta{
-  max-width:1130px;margin:0 auto;border-radius:36px;
-  background:linear-gradient(125deg,var(--coral) 0%,var(--coral-deep) 52%,var(--navy) 128%);
-  padding:74px 56px;text-align:center;color:#fff;position:relative;overflow:hidden;
-  box-shadow:var(--shadow);
+/* ---------- CONTACT / ORDER FORM ---------- */
+.contact{background:var(--cream);}
+.contact-split{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:start;}
+.contact-info h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:700;margin-bottom:16px;}
+.contact-info h2 .u{color:var(--coral);}
+.contact-info>p{color:var(--ink-soft);font-size:1.04rem;line-height:1.65;margin-bottom:26px;}
+.contact-list{list-style:none;display:flex;flex-direction:column;gap:16px;}
+.contact-list li{display:flex;align-items:center;gap:14px;}
+.ci-ic{
+  width:46px;height:46px;border-radius:13px;background:var(--teal);
+  color:#fff;display:grid;place-items:center;font-size:1.1rem;flex-shrink:0;
 }
-.cta::before{content:"";position:absolute;width:300px;height:300px;border-radius:50%;
-  background:rgba(255,255,255,.12);left:-90px;top:-90px;}
-.cta::after{content:"";position:absolute;width:230px;height:230px;border-radius:50%;
-  background:rgba(12,42,61,.34);right:-70px;bottom:-90px;}
-.cta-in{position:relative;z-index:2;}
-.cta h2{font-size:clamp(2rem,4.4vw,3.2rem);font-weight:700;max-width:18ch;margin:0 auto 16px;}
-.cta p{color:rgba(255,255,255,.88);font-size:1.06rem;max-width:46ch;margin:0 auto 30px;line-height:1.6;}
-.cta .hero-actions{justify-content:center;}
+.contact-list strong{display:block;font-family:'Bricolage Grotesque';font-size:.95rem;}
+.contact-list a,.contact-list li span{font-size:.9rem;color:var(--ink-soft);}
+.contact-list a:hover{color:var(--coral-deep);}
+
+.order-form{
+  background:var(--cream-card);border-radius:var(--radius);
+  padding:32px 30px;box-shadow:var(--shadow-sm);
+  border:1px solid rgba(22,24,36,.07);
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field.full{grid-column:1 / -1;}
+.order-form label{font-weight:600;font-size:.87rem;color:var(--ink);}
+.order-form input,.order-form select,.order-form textarea{
+  font-family:'Hanken Grotesk';font-size:.95rem;color:var(--ink);
+  background:#fff;border:1.6px solid rgba(22,24,36,.14);
+  border-radius:12px;padding:12px 14px;width:100%;transition:border-color .2s;
+}
+.order-form input:focus,.order-form select:focus,.order-form textarea:focus{
+  outline:none;border-color:var(--teal);
+}
+.order-form textarea{resize:vertical;min-height:100px;}
+.form-submit{grid-column:1 / -1;justify-content:center;margin-top:4px;font-size:1rem;}
+.form-alt{grid-column:1 / -1;text-align:center;font-size:.88rem;color:var(--ink-soft);}
+.form-alt a{color:var(--coral-deep);font-weight:700;}
 
 /* ---------- FOOTER ---------- */
 footer{background:var(--navy-deep);color:rgba(255,255,255,.62);padding:58px 0 32px;}
@@ -289,7 +343,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.62);padding:58px 0 32
 .socials{display:flex;gap:10px;}
 .socials a{
   width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.09);
-  display:grid;place-items:center;font-size:.78rem;font-weight:700;color:#fff;margin:0;
+  display:grid;place-items:center;font-size:.95rem;font-weight:700;color:#fff;margin:0;
 }
 .socials a:hover{background:var(--coral);}
 .foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;
@@ -307,6 +361,8 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.62);padding:58px 0 32
   .about-photo{max-width:420px;}
   .svc-grid{grid-template-columns:repeat(2,1fr);}
   .gallery{grid-template-columns:repeat(2,1fr);}
+  .price-grid{grid-template-columns:1fr;max-width:430px;margin:0 auto;}
+  .contact-split{grid-template-columns:1fr;gap:34px;}
   .foot-grid{grid-template-columns:1fr 1fr;}
   .hero-top{padding:46px 36px 56px;}
   .hero-foot{padding:26px 36px 42px;}
@@ -327,9 +383,9 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.62);padding:58px 0 32
   .hero-foot{padding:24px 26px 36px;}
   .svc-grid{grid-template-columns:1fr;}
   .gallery{grid-template-columns:1fr;}
+  .order-form{grid-template-columns:1fr;}
   .sec-head{flex-direction:column;align-items:flex-start;}
   section{padding:62px 0;}
-  .cta{padding:54px 26px;}
   .foot-grid{grid-template-columns:1fr;gap:26px;}
   .hero-top h1{font-size:2.4rem;}
   .lb-nav{width:42px;height:42px;font-size:1.2rem;}
