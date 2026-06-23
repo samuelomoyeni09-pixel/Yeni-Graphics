@@ -187,3 +187,64 @@ document.querySelectorAll('.price-btn').forEach(btn => {
     if (contact) contact.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+/* =====================================================
+   3D GALLERY CARD TILT  (mouse-tracking perspective)
+   ===================================================== */
+cards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    card.style.transition = 'transform .12s ease, box-shadow .35s ease';
+  });
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width  - 0.5;   // -0.5 → 0.5
+    const y = (e.clientY - r.top)  / r.height - 0.5;
+    card.style.transform =
+      `perspective(700px) rotateY(${x * 20}deg) rotateX(${-y * 20}deg) scale(1.04)`;
+    card.style.boxShadow = `
+      ${-x * 18}px ${-y * 18}px 40px -12px rgba(22,24,36,.28),
+      0 30px 60px -20px rgba(22,24,36,.22)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transition = 'transform .55s ease, box-shadow .55s ease';
+    card.style.transform  = '';
+    card.style.boxShadow  = '';
+  });
+});
+
+/* =====================================================
+   HERO PARALLAX  (content drifts slower than scroll)
+   ===================================================== */
+const heroTop   = document.querySelector('.hero-top');
+const heroStats = document.querySelector('.hero-stats');
+const heroFoot  = document.querySelector('.hero-foot');
+
+if (heroTop) {
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y < window.innerHeight * 1.2) {
+          heroTop.style.transform   = `translateY(${y * 0.28}px)`;
+          if (heroStats) heroStats.style.transform = `translateY(${y * 0.10}px)`;
+          if (heroFoot)  heroFoot.style.transform  = `translateY(${y * 0.06}px)`;
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
+/* =====================================================
+   BACK TO TOP
+   ===================================================== */
+const backTop = document.getElementById('backTop');
+if (backTop) {
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('show', window.scrollY > 450);
+  }, { passive: true });
+  backTop.addEventListener('click', () =>
+    window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
