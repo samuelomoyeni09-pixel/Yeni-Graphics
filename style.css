@@ -598,6 +598,34 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.62);padding:58px 0 32
 @keyframes lgFill{from{width:0}to{width:100%}}
 
 /* ══════════════════════════════════════════
+   SMOOTH PAGE TRANSITIONS
+══════════════════════════════════════════ */
+.page-transition{
+  position:fixed;inset:0;
+  background:var(--cream);
+  z-index:9990;pointer-events:none;
+  opacity:0;transition:opacity .35s ease;
+}
+.page-transition.active{opacity:1;pointer-events:all;}
+
+/* ══════════════════════════════════════════
+   RIGHT-CLICK PROTECTION TOAST
+══════════════════════════════════════════ */
+.protect-toast{
+  position:fixed;bottom:100px;left:50%;
+  transform:translateX(-50%) translateY(16px);
+  background:var(--navy-deep);color:#fff;
+  padding:11px 22px;border-radius:50px;
+  font-family:'Hanken Grotesk',sans-serif;
+  font-size:.87rem;font-weight:600;
+  z-index:500;opacity:0;white-space:nowrap;
+  transition:opacity .3s ease,transform .3s ease;
+  box-shadow:0 8px 24px -8px rgba(0,0,0,.45);
+  pointer-events:none;
+}
+.protect-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ══════════════════════════════════════════
    AVAILABILITY BADGE
 ══════════════════════════════════════════ */
 .avail-dot{

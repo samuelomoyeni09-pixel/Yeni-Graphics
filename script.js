@@ -317,3 +317,59 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   });
 }
+
+/* =====================================================
+   SMOOTH PAGE TRANSITIONS  (nav link clicks)
+   ===================================================== */
+(function(){
+  const overlay = document.getElementById('pageTransition');
+  if (!overlay) return;
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.getAttribute('href');
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+
+      overlay.classList.add('active');
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'instant' });
+        const nav = document.getElementById('navLinks');
+        if (nav) nav.classList.remove('open');
+        setTimeout(() => overlay.classList.remove('active'), 80);
+      }, 320);
+    });
+  });
+})();
+
+/* =====================================================
+   RIGHT-CLICK / DRAG PROTECTION  (gallery images)
+   ===================================================== */
+(function(){
+  function showToast(msg){
+    const t = document.createElement('div');
+    t.className = 'protect-toast';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => t.classList.add('show'));
+    });
+    setTimeout(() => {
+      t.classList.remove('show');
+      setTimeout(() => t.remove(), 400);
+    }, 3000);
+  }
+
+  document.addEventListener('contextmenu', e => {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+      showToast('© Yeni Graphics — Contact Samuel to use this design');
+    }
+  });
+
+  document.querySelectorAll('img').forEach(img => {
+    img.setAttribute('draggable', 'false');
+    img.addEventListener('dragstart', e => e.preventDefault());
+  });
+})();

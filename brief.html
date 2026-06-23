@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Client Design Brief — Yeni Graphics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--teal:#15b6a6;--teal-deep:#0e7d77;--coral:#fb6f5d;--navy:#123b56;--cream:#f4efe7;--ink:#161824;--soft:#4a4d5e;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
+
+header{
+  background:linear-gradient(135deg,var(--navy) 0%,#0d6f6c 100%);
+  color:#fff;padding:36px 24px;text-align:center;
+}
+header h1{font-family:'Bricolage Grotesque';font-size:1.9rem;font-weight:700;margin-bottom:8px;}
+header p{opacity:.78;font-size:.97rem;max-width:46ch;margin:0 auto;}
+
+.progress{display:flex;justify-content:center;gap:0;margin:32px auto 0;max-width:500px;padding:0 24px;}
+.p-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;}
+.p-step:not(:last-child)::after{content:"";position:absolute;top:14px;left:50%;width:100%;height:2px;background:rgba(22,24,36,.15);z-index:0;}
+.p-dot{width:28px;height:28px;border-radius:50%;border:2.5px solid rgba(22,24,36,.18);background:var(--cream);display:grid;place-items:center;font-size:.72rem;font-weight:700;color:var(--soft);position:relative;z-index:1;transition:.3s;}
+.p-step.active .p-dot{background:var(--teal);border-color:var(--teal);color:#fff;}
+.p-step.done .p-dot{background:var(--navy);border-color:var(--navy);color:#fff;}
+.p-label{font-size:.72rem;font-weight:600;color:var(--soft);margin-top:6px;text-align:center;}
+.p-step.active .p-label{color:var(--teal-deep);}
+
+.wrap{max-width:680px;margin:32px auto 60px;padding:0 20px;}
+
+.section-card{
+  background:#fff;border-radius:20px;padding:30px 28px;margin-bottom:22px;
+  border-left:4px solid var(--teal);
+  box-shadow:0 8px 28px -8px rgba(22,24,36,.1);
+  display:none;
+}
+.section-card.active{display:block;}
+.section-title{
+  font-family:'Bricolage Grotesque';font-size:1.15rem;font-weight:700;
+  color:var(--navy);margin-bottom:22px;display:flex;align-items:center;gap:10px;
+}
+.section-icon{
+  width:36px;height:36px;border-radius:10px;background:rgba(21,182,166,.12);
+  display:grid;place-items:center;font-size:1.1rem;flex-shrink:0;
+}
+
+.field{margin-bottom:18px;}
+.field label{display:block;font-weight:600;font-size:.88rem;color:var(--ink);margin-bottom:6px;}
+.field label span{font-weight:400;color:var(--soft);font-size:.82rem;}
+.field input[type=text],
+.field input[type=tel],
+.field input[type=date],
+.field select,
+.field textarea{
+  width:100%;padding:12px 15px;border-radius:12px;
+  border:1.6px solid rgba(22,24,36,.14);
+  font-family:'Hanken Grotesk';font-size:.95rem;color:var(--ink);
+  background:#fafaf8;transition:border-color .2s,box-shadow .2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(21,182,166,.12);
+}
+.field textarea{resize:vertical;min-height:90px;}
+.field.hidden{display:none;}
+
+.radio-group{display:flex;gap:12px;flex-wrap:wrap;}
+.radio-label{
+  display:flex;align-items:center;gap:8px;
+  padding:11px 18px;border-radius:50px;border:1.6px solid rgba(22,24,36,.14);
+  cursor:pointer;font-weight:600;font-size:.9rem;transition:.2s;
+  background:#fafaf8;
+}
+.radio-label:has(input:checked){border-color:var(--teal);background:rgba(21,182,166,.08);color:var(--teal-deep);}
+.radio-label input{display:none;}
+
+.nav-btns{display:flex;gap:12px;margin-top:8px;}
+.btn{
+  flex:1;padding:14px 20px;border-radius:50px;border:none;
+  font-family:'Hanken Grotesk';font-weight:700;font-size:.97rem;cursor:pointer;
+  transition:transform .22s ease,box-shadow .22s ease;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-back{background:rgba(22,24,36,.07);color:var(--soft);}
+.btn-next{background:var(--navy);color:#fff;box-shadow:0 8px 22px -8px rgba(18,59,86,.5);}
+.btn-next:hover{box-shadow:0 14px 28px -8px rgba(18,59,86,.65);}
+.btn-submit{background:var(--coral);color:#fff;box-shadow:0 8px 22px -8px rgba(251,111,93,.55);width:100%;}
+.btn-submit:hover{background:#e8523f;box-shadow:0 14px 28px -8px rgba(251,111,93,.7);}
+
+.error-msg{
+  background:rgba(251,111,93,.1);border:1px solid rgba(251,111,93,.3);
+  color:#c0392b;border-radius:10px;padding:11px 16px;font-size:.88rem;
+  margin-bottom:16px;display:none;font-weight:600;
+}
+.error-msg.show{display:block;}
+
+footer{text-align:center;padding:24px;color:var(--soft);font-size:.85rem;}
+footer a{color:var(--teal-deep);font-weight:600;text-decoration:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📋 Client Design Brief</h1>
+  <p>Fill this in before your order so Samuel can start right away</p>
+</header>
+
+<!-- Progress bar -->
+<div class="progress" id="progress">
+  <div class="p-step active" id="ps1"><div class="p-dot">1</div><div class="p-label">About You</div></div>
+  <div class="p-step" id="ps2"><div class="p-dot">2</div><div class="p-label">Your Design</div></div>
+  <div class="p-step" id="ps3"><div class="p-dot">3</div><div class="p-label">Content</div></div>
+  <div class="p-step" id="ps4"><div class="p-dot">4</div><div class="p-label">Deadline</div></div>
+</div>
+
+<div class="wrap">
+  <div class="error-msg" id="errMsg">⚠️ Please fill in all required fields before continuing.</div>
+
+  <!-- SECTION 1 -->
+  <div class="section-card active" id="sec1">
+    <div class="section-title"><div class="section-icon">👤</div>About You</div>
+    <div class="field">
+      <label>Full Name <span>*required</span></label>
+      <input type="text" id="fName" placeholder="e.g. Adeyemi Johnson" required/>
+    </div>
+    <div class="field">
+      <label>WhatsApp Number <span>*required</span></label>
+      <input type="tel" id="fPhone" placeholder="e.g. 08031234567" required/>
+    </div>
+    <div class="field">
+      <label>Business / Organisation Name <span>(optional)</span></label>
+      <input type="text" id="fBusiness" placeholder="Leave blank if this is a personal design"/>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-next" onclick="goTo(2)">Next → Your Design</button>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-card" id="sec2">
+    <div class="section-title"><div class="section-icon">🎨</div>Your Design</div>
+    <div class="field">
+      <label>Design Type <span>*required</span></label>
+      <select id="fType" onchange="toggleOther()" required>
+        <option value="" disabled selected>Choose a design type</option>
+        <option>Business Flyer</option>
+        <option>Church Program</option>
+        <option>Birthday Design</option>
+        <option>Menu / Price List</option>
+        <option>Social Media Post</option>
+        <option>Logo &amp; Branding</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="field hidden" id="otherWrap">
+      <label>Please describe your design type <span>*required</span></label>
+      <input type="text" id="fOther" placeholder="Describe what you need"/>
+    </div>
+    <div class="field">
+      <label>Purpose of the design <span>*required</span></label>
+      <textarea id="fPurpose" placeholder="e.g. To promote our end-of-year sale on Instagram" required></textarea>
+    </div>
+    <div class="field">
+      <label>Size / Format</label>
+      <select id="fSize">
+        <option>Not sure (use best fit)</option>
+        <option>Social Media Post (1:1)</option>
+        <option>Instagram Story (9:16)</option>
+        <option>A4 Print</option>
+        <option>WhatsApp Status</option>
+      </select>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-back" onclick="goTo(1)">← Back</button>
+      <button class="btn btn-next" onclick="goTo(3)">Next → Content</button>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section-card" id="sec3">
+    <div class="section-title"><div class="section-icon">✍️</div>Content</div>
+    <div class="field">
+      <label>Text / Words to include on the design <span>*required</span></label>
+      <textarea id="fText" rows="5" placeholder="Type all the text that should appear — business name, phone, address, slogan, event date, prices, etc." required></textarea>
+    </div>
+    <div class="field">
+      <label>Do you have photos to send?</label>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="photos" value="Yes" checked/> 📷 Yes</label>
+        <label class="radio-label"><input type="radio" name="photos" value="No"/> ❌ No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Preferred colours <span>(optional)</span></label>
+      <input type="text" id="fColours" placeholder="e.g. Blue and gold, or match my business colours"/>
+    </div>
+    <div class="field">
+      <label>Do you have existing brand colours?</label>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="brand" value="Yes"/> ✅ Yes</label>
+        <label class="radio-label"><input type="radio" name="brand" value="No" checked/> ❌ No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Reference designs <span>(optional)</span></label>
+      <textarea id="fRef" placeholder="Describe or paste links to designs you like — this helps Samuel match your taste"></textarea>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-back" onclick="goTo(2)">← Back</button>
+      <button class="btn btn-next" onclick="goTo(4)">Next → Deadline</button>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section-card" id="sec4">
+    <div class="section-title"><div class="section-icon">📅</div>Deadline &amp; Package</div>
+    <div class="field">
+      <label>When do you need it by? <span>*required</span></label>
+      <input type="date" id="fDeadline" required/>
+    </div>
+    <div class="field">
+      <label>Package</label>
+      <select id="fPackage">
+        <option>Basic — ₦5,000</option>
+        <option>Standard — ₦10,000</option>
+        <option>Premium — ₦20,000</option>
+        <option>Not sure — advise me</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Additional notes <span>(optional)</span></label>
+      <textarea id="fNotes" placeholder="Anything else Samuel should know about this design?"></textarea>
+    </div>
+    <div class="nav-btns" style="flex-direction:column;">
+      <button class="btn btn-back" onclick="goTo(3)" style="flex:none;">← Back</button>
+      <button class="btn btn-submit" onclick="submitBrief()">📲 Send Brief on WhatsApp →</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="https://yeni-graphics.vercel.app">← Back to Yeni Graphics Portfolio</a>
+  <p style="margin-top:6px;">© 2026 Yeni Graphics · Samuel Omoyeni</p>
+</footer>
+
+<script>
+let current = 1;
+
+function goTo(n){
+  const err = document.getElementById('errMsg');
+  err.classList.remove('show');
+
+  if(n > current && !validate(current)){
+    err.classList.add('show');
+    err.scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+
+  document.getElementById('sec'+current).classList.remove('active');
+  document.getElementById('ps'+current).classList.remove('active');
+  document.getElementById('ps'+current).classList.add('done');
+
+  current = n;
+  document.getElementById('sec'+current).classList.add('active');
+
+  document.querySelectorAll('.p-step').forEach((el,i)=>{
+    el.classList.remove('active','done');
+    if(i+1 < current) el.classList.add('done');
+    if(i+1 === current) el.classList.add('active');
+  });
+
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validate(sec){
+  if(sec===1){
+    const name = document.getElementById('fName').value.trim();
+    const phone = document.getElementById('fPhone').value.trim();
+    return name && phone;
+  }
+  if(sec===2){
+    const type = document.getElementById('fType').value;
+    const purpose = document.getElementById('fPurpose').value.trim();
+    if(!type) return false;
+    if(type==='Other' && !document.getElementById('fOther').value.trim()) return false;
+    return !!purpose;
+  }
+  if(sec===3){
+    return !!document.getElementById('fText').value.trim();
+  }
+  if(sec===4){
+    return !!document.getElementById('fDeadline').value;
+  }
+  return true;
+}
+
+function toggleOther(){
+  const t = document.getElementById('fType').value;
+  document.getElementById('otherWrap').classList.toggle('hidden', t !== 'Other');
+}
+
+function getRadio(name){
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : '—';
+}
+
+function fmt(d){
+  if(!d) return '—';
+  const dt = new Date(d+'T00:00:00');
+  return dt.toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'});
+}
+
+function submitBrief(){
+  const err = document.getElementById('errMsg');
+  err.classList.remove('show');
+  if(!validate(4)){
+    err.classList.add('show');
+    return;
+  }
+
+  const name     = document.getElementById('fName').value.trim();
+  const phone    = document.getElementById('fPhone').value.trim();
+  const biz      = document.getElementById('fBusiness').value.trim() || 'Personal';
+  const typeRaw  = document.getElementById('fType').value;
+  const type     = typeRaw === 'Other' ? document.getElementById('fOther').value.trim() : typeRaw;
+  const purpose  = document.getElementById('fPurpose').value.trim();
+  const size     = document.getElementById('fSize').value;
+  const text     = document.getElementById('fText').value.trim();
+  const photos   = getRadio('photos');
+  const colours  = document.getElementById('fColours').value.trim() || '—';
+  const brand    = getRadio('brand');
+  const refs     = document.getElementById('fRef').value.trim() || '—';
+  const deadline = fmt(document.getElementById('fDeadline').value);
+  const pkg      = document.getElementById('fPackage').value;
+  const notes    = document.getElementById('fNotes').value.trim() || '—';
+
+  const msg =
+`📋 CLIENT DESIGN BRIEF
+
+👤 Name: ${name}
+📱 WhatsApp: ${phone}
+🏢 Business: ${biz}
+
+🎨 Design Type: ${type}
+📌 Purpose: ${purpose}
+📐 Size / Format: ${size}
+
+✍️ Text to include:
+${text}
+
+📷 Has photos to send: ${photos}
+🎨 Preferred colours: ${colours}
+🏷️ Has brand colours: ${brand}
+🔗 Reference designs: ${refs}
+
+📅 Deadline: ${deadline}
+📦 Package: ${pkg}
+📝 Notes: ${notes}`;
+
+  window.open('https://wa.me/2348054965524?text=' + encodeURIComponent(msg), '_blank');
+}
+</script>
+</body>
+</html>

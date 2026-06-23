@@ -7,90 +7,244 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 <style>
-:root{--teal:#15b6a6;--coral:#fb6f5d;--navy:#123b56;--cream:#f4efe7;--ink:#161824;--soft:#4a4d5e;}
+:root{--teal:#15b6a6;--coral:#fb6f5d;--navy:#123b56;--navy-deep:#0c2a3d;--cream:#f4efe7;--ink:#161824;--soft:#4a4d5e;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
-header{background:linear-gradient(135deg,var(--navy),#0d6f6c);color:#fff;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;}
-header h1{font-family:'Bricolage Grotesque';font-size:1.4rem;font-weight:700;}
-header p{opacity:.75;font-size:.85rem;margin-top:3px;}
-.layout{display:grid;grid-template-columns:420px 1fr;gap:28px;padding:28px;max-width:1200px;margin:0 auto;}
-.form-panel{background:#fff;border-radius:20px;padding:28px;box-shadow:0 8px 28px -8px rgba(22,24,36,.12);}
-.form-panel h2{font-family:'Bricolage Grotesque';font-size:1.1rem;font-weight:700;margin-bottom:20px;color:var(--navy);}
-.field{margin-bottom:14px;}
-.field label{display:block;font-weight:600;font-size:.85rem;margin-bottom:5px;color:var(--ink);}
-.field input,.field select,.field textarea{
-  width:100%;padding:10px 13px;border-radius:10px;
-  border:1.6px solid rgba(22,24,36,.14);
-  font-family:'Hanken Grotesk';font-size:.93rem;color:var(--ink);
-  background:#fafafa;transition:border-color .2s;
+body{font-family:'Hanken Grotesk',sans-serif;background:linear-gradient(135deg,var(--navy-deep) 0%,#0d3d5c 50%,#0c3a38 100%);color:var(--ink);min-height:100vh;}
+
+/* ── Page Header ── */
+header{
+  background:rgba(12,42,61,.85);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  color:#fff;padding:18px 32px;
+  display:flex;justify-content:space-between;align-items:center;
 }
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);}
-.field textarea{resize:vertical;min-height:70px;}
+header h1{font-family:'Bricolage Grotesque';font-size:1.3rem;font-weight:700;display:flex;align-items:center;gap:10px;}
+header h1 i{color:var(--teal);}
+header p{opacity:.6;font-size:.82rem;margin-top:2px;}
+header a{color:rgba(255,255,255,.55);font-size:.85rem;text-decoration:none;transition:.2s;}
+header a:hover{color:var(--coral);}
+
+/* ── Layout ── */
+.layout{display:grid;grid-template-columns:400px 1fr;gap:24px;padding:28px 32px;max-width:1240px;margin:0 auto;}
+
+/* ── Form Panel ── */
+.form-panel{
+  background:#fff;border-radius:16px;
+  border-top:4px solid var(--navy);
+  padding:28px 26px;
+  box-shadow:0 20px 60px -16px rgba(0,0,0,.5);
+  position:sticky;top:20px;height:fit-content;
+}
+.form-label{
+  font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:18px;display:block;
+}
+.field{margin-bottom:13px;}
+.field label{display:block;font-weight:600;font-size:.82rem;margin-bottom:5px;color:var(--navy);}
+.field input,.field select,.field textarea{
+  width:100%;padding:10px 13px;border-radius:9px;
+  border:1.6px solid rgba(22,24,36,.12);
+  font-family:'Hanken Grotesk';font-size:.92rem;color:var(--ink);
+  background:#f8f9fc;transition:border-color .2s,box-shadow .2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--teal);
+  box-shadow:0 0 0 3px rgba(21,182,166,.12);
+}
+.field textarea{resize:vertical;min-height:65px;}
 #customAmountWrap{display:none;}
-.btn{width:100%;padding:13px;border-radius:50px;border:none;font-weight:700;font-size:.95rem;cursor:pointer;transition:.2s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
-.btn-coral{background:var(--coral);color:#fff;}
-.btn-coral:hover{background:#e8523f;transform:translateY(-2px);}
-.btn-navy{background:var(--navy);color:#fff;}
-.btn-navy:hover{background:#0c2a3d;transform:translateY(-2px);}
-.btn-wa{background:#25d366;color:#fff;}
+
+.btn{
+  width:100%;padding:13px;border-radius:50px;border:none;
+  font-family:'Hanken Grotesk';font-weight:700;font-size:.93rem;
+  cursor:pointer;transition:.22s;margin-top:8px;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.btn-navy{background:var(--navy);color:#fff;box-shadow:0 8px 22px -8px rgba(18,59,86,.6);}
+.btn-navy:hover{background:var(--navy-deep);transform:translateY(-2px);box-shadow:0 14px 28px -8px rgba(18,59,86,.7);}
+.btn-wa{background:#25d366;color:#fff;box-shadow:0 8px 22px -8px rgba(37,211,102,.5);}
 .btn-wa:hover{background:#1da851;transform:translateY(-2px);}
-.btn-row{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.btn-row{display:flex;flex-direction:column;gap:10px;margin-top:18px;}
+.divider{height:1px;background:rgba(22,24,36,.08);margin:18px 0;}
 
-/* ── Invoice Preview ── */
-.preview-panel{background:#fff;border-radius:20px;padding:32px;box-shadow:0 8px 28px -8px rgba(22,24,36,.12);}
-.invoice{background:#fff;max-width:700px;margin:0 auto;font-family:'Hanken Grotesk',sans-serif;}
-.inv-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:3px solid var(--teal);}
-.inv-brand .name{font-family:'Bricolage Grotesque';font-size:1.8rem;font-weight:700;color:var(--navy);}
-.inv-brand .sub{font-size:.82rem;color:var(--soft);letter-spacing:.08em;text-transform:uppercase;margin-top:3px;}
+/* ── Preview Panel ── */
+.preview-panel{
+  background:#f0f2f5;border-radius:16px;
+  padding:32px;
+  box-shadow:0 20px 60px -16px rgba(0,0,0,.5);
+}
+.preview-label{
+  font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);margin-bottom:18px;display:block;
+}
+
+/* ── Invoice Card ── */
+.invoice{
+  background:#fff;
+  border-radius:4px;
+  box-shadow:0 24px 64px -16px rgba(0,0,0,.35);
+  overflow:hidden;position:relative;
+  border-left:6px solid var(--teal);
+}
+
+/* Invoice Header Band */
+.inv-head{
+  background:var(--navy);
+  padding:28px 32px;
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+.inv-brand .name{
+  font-family:'Bricolage Grotesque';font-size:1.9rem;font-weight:700;
+  color:#fff;letter-spacing:-.01em;
+}
+.inv-brand .sub{
+  font-size:.78rem;color:var(--teal);letter-spacing:.12em;
+  text-transform:uppercase;margin-top:5px;font-weight:600;
+}
 .inv-meta{text-align:right;}
-.inv-title{font-family:'Bricolage Grotesque';font-size:2rem;font-weight:700;color:var(--teal);line-height:1;}
-.inv-num{font-size:.85rem;color:var(--soft);margin-top:5px;}
-.inv-date{font-size:.85rem;color:var(--soft);}
+.inv-title{
+  font-family:'Bricolage Grotesque';font-size:2.8rem;font-weight:700;
+  color:var(--coral);line-height:1;letter-spacing:.04em;
+}
+.inv-num{font-size:.82rem;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.06em;}
+.inv-date{font-size:.82rem;color:rgba(255,255,255,.45);margin-top:3px;}
 
-.inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;}
-.inv-from,.inv-to{padding:18px;border-radius:12px;background:var(--cream);}
-.inv-from h4,.inv-to h4{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:8px;}
-.inv-from p,.inv-to p{font-size:.92rem;line-height:1.7;color:var(--ink);}
-.inv-from strong,.inv-to strong{font-family:'Bricolage Grotesque';font-size:1.02rem;display:block;}
+/* Parties */
+.inv-parties{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  background:var(--cream);
+}
+.inv-from,.inv-to{
+  padding:22px 30px;
+  position:relative;
+}
+.inv-from{border-right:1px solid rgba(22,24,36,.08);}
+.inv-from::before,.inv-to::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+}
+.inv-from::before{background:var(--teal);}
+.inv-to::before{background:var(--coral);}
+.inv-from h4,.inv-to h4{
+  font-size:.68rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--soft);margin-bottom:10px;
+}
+.inv-from strong,.inv-to strong{
+  font-family:'Bricolage Grotesque';font-size:1.05rem;
+  display:block;margin-bottom:6px;color:var(--ink);
+}
+.inv-from p,.inv-to p{font-size:.88rem;line-height:1.75;color:var(--soft);}
 
-table.inv-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
-.inv-table th{background:var(--navy);color:#fff;padding:11px 14px;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-align:left;}
-.inv-table td{padding:13px 14px;font-size:.92rem;border-bottom:1px solid rgba(22,24,36,.07);}
-.inv-table .amount{text-align:right;font-weight:700;}
-.inv-table tfoot td{border:none;padding-top:16px;}
-.total-row td{font-family:'Bricolage Grotesque';font-size:1.25rem;font-weight:700;color:var(--navy);border-top:2px solid var(--teal);padding-top:12px;}
-.total-row td.amount{color:var(--coral);}
+/* Table */
+.inv-table-wrap{padding:24px 30px 0;}
+table.inv-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px -4px rgba(22,24,36,.12);}
+.inv-table thead tr th{
+  background:var(--navy);color:#fff;
+  padding:12px 16px;font-size:.78rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;text-align:left;
+}
+.inv-table thead tr th:last-child{text-align:right;}
+.inv-table tbody tr td{
+  padding:16px 16px;font-size:.93rem;
+  border-bottom:1px solid rgba(22,24,36,.06);
+  background:#fff;
+}
+.inv-table tbody tr:nth-child(even) td{background:rgba(244,239,231,.5);}
+.inv-table tbody tr:last-child td{border-bottom:none;}
+.inv-table .amount{text-align:right;font-weight:700;color:var(--ink);}
 
-.inv-note{background:rgba(21,182,166,.09);border-left:3px solid var(--teal);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.88rem;color:var(--soft);margin-bottom:20px;line-height:1.6;}
-.inv-foot{text-align:center;padding-top:20px;border-top:1px solid rgba(22,24,36,.08);}
-.inv-foot p{font-size:.88rem;color:var(--soft);}
-.inv-foot .thanks{font-family:'Bricolage Grotesque';font-size:1.1rem;color:var(--navy);font-weight:700;margin-bottom:6px;}
+/* Total Box */
+.inv-total-box{
+  background:var(--navy);
+  margin:0 30px 0;
+  border-radius:0 0 10px 10px;
+  padding:16px 20px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.inv-total-label{
+  font-family:'Bricolage Grotesque';font-size:1rem;font-weight:700;
+  color:rgba(255,255,255,.6);letter-spacing:.1em;text-transform:uppercase;
+}
+.inv-total-amount{
+  font-family:'Bricolage Grotesque';font-size:2rem;font-weight:700;color:var(--coral);
+}
+.inv-total-sub{
+  font-size:.75rem;color:var(--teal);text-align:right;
+  padding:0 30px;margin-bottom:20px;margin-top:6px;font-style:italic;
+}
 
+/* Note */
+.inv-note{
+  margin:0 30px 20px;
+  background:rgba(21,182,166,.07);
+  border-left:3px solid var(--teal);
+  padding:12px 16px;border-radius:0 8px 8px 0;
+  font-size:.86rem;color:var(--soft);line-height:1.7;
+}
+
+/* UNPAID Stamp */
+.inv-stamp{
+  position:absolute;bottom:90px;right:28px;
+  border:3px double #e53935;
+  color:#e53935;
+  font-family:'Bricolage Grotesque';font-size:1.3rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:8px 18px;border-radius:4px;
+  transform:rotate(-15deg);
+  opacity:.18;pointer-events:none;
+}
+
+/* Footer */
+.inv-foot{
+  text-align:center;padding:22px 30px 26px;
+  border-top:1px solid rgba(22,24,36,.07);
+  margin-top:4px;
+}
+.inv-foot .thanks{
+  font-family:'Bricolage Grotesque';font-size:1.1rem;font-weight:700;
+  color:var(--coral);margin-bottom:7px;
+}
+.inv-foot p{font-size:.85rem;color:var(--soft);line-height:1.7;}
+.inv-foot a{color:var(--teal);text-decoration:none;font-weight:600;}
+
+/* ── Print ── */
 @media print{
   .no-print{display:none !important;}
   body{background:#fff;}
-  .layout{grid-template-columns:1fr;padding:0;}
-  .preview-panel{box-shadow:none;padding:0;border-radius:0;}
+  .layout{display:block;padding:0;}
+  .preview-panel{box-shadow:none;padding:0;border-radius:0;background:#fff;}
   .form-panel{display:none;}
+  .preview-label{display:none;}
+  .invoice{box-shadow:none;border-left:6px solid var(--teal);}
 }
-@media(max-width:900px){
-  .layout{grid-template-columns:1fr;}
+
+/* ── Responsive ── */
+@media(max-width:960px){
+  .layout{grid-template-columns:1fr;padding:20px;}
+  .form-panel{position:static;}
+}
+@media(max-width:560px){
+  .inv-parties{grid-template-columns:1fr;}
+  .inv-from{border-right:none;border-bottom:1px solid rgba(22,24,36,.08);}
+  .inv-head{flex-direction:column;gap:16px;}
+  .inv-meta{text-align:left;}
 }
 </style>
 </head>
 <body>
+
 <header class="no-print">
   <div>
-    <h1><i class="fa-solid fa-file-invoice"></i> Invoice Generator</h1>
+    <h1><i class="fa-solid fa-file-invoice-dollar"></i> Invoice Generator</h1>
     <p>Yeni Graphics · Professional Design Invoices</p>
   </div>
-  <a href="https://yeni-graphics.vercel.app" style="color:rgba(255,255,255,.7);font-size:.88rem;">← Back to portfolio</a>
+  <a href="https://yeni-graphics.vercel.app">← Back to portfolio</a>
 </header>
 
 <div class="layout">
-  <!-- FORM -->
+
+  <!-- ══ FORM ══ -->
   <div class="form-panel no-print">
-    <h2>Invoice Details</h2>
+    <span class="form-label">Invoice Details</span>
 
     <div class="field">
       <label>Client Name</label>
@@ -126,6 +280,9 @@ table.inv-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
       <label>Custom Amount (₦)</label>
       <input type="number" id="cCustomAmt" placeholder="e.g. 15000" oninput="liveUpdate()"/>
     </div>
+
+    <div class="divider"></div>
+
     <div class="field">
       <label>Invoice Date</label>
       <input type="date" id="cDate" oninput="liveUpdate()"/>
@@ -140,14 +297,22 @@ table.inv-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
     </div>
 
     <div class="btn-row">
-      <button class="btn btn-navy" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
-      <button class="btn btn-wa" onclick="sendWA()"><i class="fa-brands fa-whatsapp"></i> Send Summary on WhatsApp</button>
+      <button class="btn btn-navy" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> Print / Save as PDF
+      </button>
+      <button class="btn btn-wa" onclick="sendWA()">
+        <i class="fa-brands fa-whatsapp"></i> Send Summary on WhatsApp
+      </button>
     </div>
   </div>
 
-  <!-- INVOICE PREVIEW -->
+  <!-- ══ INVOICE PREVIEW ══ -->
   <div class="preview-panel">
+    <span class="preview-label no-print">Live Preview</span>
+
     <div class="invoice" id="invoicePreview">
+
+      <!-- Header Band -->
       <div class="inv-head">
         <div class="inv-brand">
           <div class="name">Yeni Graphics</div>
@@ -160,6 +325,7 @@ table.inv-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
         </div>
       </div>
 
+      <!-- Parties -->
       <div class="inv-parties">
         <div class="inv-from">
           <h4>From</h4>
@@ -173,38 +339,56 @@ table.inv-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
         </div>
       </div>
 
-      <table class="inv-table">
-        <thead>
-          <tr><th>Description</th><th>Package</th><th style="text-align:right">Amount</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td id="previewType">Design Service</td>
-            <td id="previewPkg">Basic</td>
-            <td class="amount" id="previewAmt">₦5,000</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr class="total-row">
-            <td colspan="2"><strong>Total</strong></td>
-            <td class="amount" id="previewTotal">₦5,000</td>
-          </tr>
-        </tfoot>
-      </table>
+      <!-- Items Table -->
+      <div class="inv-table-wrap">
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Package</th>
+              <th style="text-align:right">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="previewType">Design Service</td>
+              <td id="previewPkg">Basic</td>
+              <td class="amount" id="previewAmt">₦5,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
+      <!-- Total Box -->
+      <div class="inv-total-box">
+        <div class="inv-total-label">Total Due</div>
+        <div class="inv-total-amount" id="previewTotal">₦5,000</div>
+      </div>
+      <div class="inv-total-sub">Thank you for your business · Payment via bank transfer or WhatsApp Pay</div>
+
+      <!-- Note -->
       <div class="inv-note" id="invNoteWrap">
         <strong>Delivery:</strong> Design delivered via WhatsApp in 24 hours.<br/>
         <span id="deadlineNote"></span>
         <span id="customNote"></span>
       </div>
 
+      <!-- UNPAID Stamp -->
+      <div class="inv-stamp">UNPAID</div>
+
+      <!-- Footer -->
       <div class="inv-foot">
         <div class="thanks">Thank you for choosing Yeni Graphics! 🙏</div>
-        <p>It's a pleasure doing business with you. For questions, reach out on WhatsApp: <strong>+234 805 496 5524</strong></p>
+        <p>
+          Questions? WhatsApp: <a href="https://wa.me/2348054965524">+234 805 496 5524</a><br/>
+          Portfolio: <a href="https://yeni-graphics.vercel.app">yeni-graphics.vercel.app</a>
+        </p>
       </div>
-    </div>
-  </div>
-</div>
+
+    </div><!-- /invoice -->
+  </div><!-- /preview-panel -->
+
+</div><!-- /layout -->
 
 <script>
 let invoiceCount = parseInt(localStorage.getItem('yg-invoice-count') || '0') + 1;

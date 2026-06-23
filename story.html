@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Story Card Generator — Yeni Graphics</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+<style>
+:root{--teal:#15b6a6;--coral:#fb6f5d;--navy:#123b56;--cream:#f4efe7;--ink:#161824;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
+header{
+  background:linear-gradient(135deg,var(--navy),#0d6f6c);
+  color:#fff;padding:22px 28px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+header h1{font-family:'Bricolage Grotesque';font-size:1.35rem;font-weight:700;}
+header p{opacity:.75;font-size:.85rem;margin-top:4px;}
+header a{color:rgba(255,255,255,.7);font-size:.88rem;text-decoration:none;transition:.2s;}
+header a:hover{color:#fff;}
+
+.main{display:flex;flex-direction:column;align-items:center;padding:40px 20px 60px;}
+
+.intro{
+  text-align:center;max-width:480px;margin-bottom:32px;
+}
+.intro h2{font-family:'Bricolage Grotesque';font-size:1.6rem;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.intro p{color:#4a4d5e;font-size:.97rem;line-height:1.6;}
+
+/* Phone frame */
+.phone-frame{
+  position:relative;
+  width:240px;height:440px;
+  border-radius:36px;
+  border:6px solid #1a1a2e;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.45), inset 0 0 0 2px rgba(255,255,255,.07);
+  overflow:hidden;
+  background:#000;
+  margin-bottom:10px;
+}
+.phone-frame::before{
+  content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  width:60px;height:6px;border-radius:3px;background:rgba(255,255,255,.15);z-index:10;
+}
+#previewCanvas{
+  width:100%;height:100%;display:block;
+}
+
+.phone-label{
+  font-size:.78rem;color:#9a9daa;text-align:center;margin-bottom:28px;
+}
+
+.btn-row{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:340px;}
+.btn{
+  width:100%;padding:15px 24px;border-radius:50px;border:none;
+  font-family:'Hanken Grotesk';font-weight:700;font-size:.97rem;
+  cursor:pointer;transition:.25s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  text-decoration:none;
+}
+.btn-coral{background:var(--coral);color:#fff;box-shadow:0 10px 28px -8px rgba(251,111,93,.6);}
+.btn-coral:hover{background:#e8523f;transform:translateY(-3px);box-shadow:0 16px 34px -8px rgba(251,111,93,.75);}
+.btn-outline{background:transparent;color:var(--navy);border:1.8px solid rgba(18,59,86,.22);}
+.btn-outline:hover{background:var(--navy);color:#fff;}
+
+.tip{
+  margin-top:32px;background:#fff;border-radius:16px;
+  padding:18px 22px;max-width:340px;width:100%;
+  border:1px solid rgba(22,24,36,.07);
+  box-shadow:0 6px 20px -8px rgba(22,24,36,.1);
+  font-size:.88rem;color:#4a4d5e;line-height:1.7;
+}
+.tip strong{color:var(--navy);font-weight:700;}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1><i class="fa-solid fa-mobile-screen-button"></i> Story Card Generator</h1>
+    <p>Download and post on your WhatsApp or Instagram Status</p>
+  </div>
+  <a href="https://yeni-graphics.vercel.app">← Back to portfolio</a>
+</header>
+
+<div class="main">
+  <div class="intro">
+    <h2>Your Brand, Story-Ready</h2>
+    <p>Generate a stunning 1080×1920 story card for your WhatsApp Status or Instagram Stories — one tap and it's ready to post.</p>
+  </div>
+
+  <div class="phone-frame">
+    <canvas id="previewCanvas" width="240" height="440"></canvas>
+  </div>
+  <div class="phone-label">Preview (tap download for full HD)</div>
+
+  <div class="btn-row">
+    <button class="btn btn-coral" onclick="downloadCard()">
+      <i class="fa-solid fa-download"></i> Download Story Card (1080×1920)
+    </button>
+    <a href="https://yeni-graphics.vercel.app" class="btn btn-outline">
+      <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+    </a>
+  </div>
+
+  <div class="tip">
+    <strong>How to use:</strong><br/>
+    1. Click Download to save the full HD card<br/>
+    2. Open WhatsApp → Status → Add → Photo<br/>
+    3. Select the downloaded image and post!<br/>
+    4. For Instagram: Post → Story → Select image
+  </div>
+</div>
+
+<script>
+function drawCard(canvas, scale) {
+  const W = 1080 * scale;
+  const H = 1920 * scale;
+  canvas.width  = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const s = scale;
+
+  // Background gradient
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0,    '#0c2a3d');
+  bg.addColorStop(0.45, '#0d6f6c');
+  bg.addColorStop(1,    '#e65100');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Subtle radial glow top-right
+  const glow = ctx.createRadialGradient(W * 0.85, H * 0.08, 0, W * 0.85, H * 0.08, W * 0.55);
+  glow.addColorStop(0, 'rgba(251,111,93,0.22)');
+  glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
+  // Circle behind YG
+  const cx = W / 2;
+  const cy = 380 * s;
+  const r  = 200 * s;
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(255,255,255,0.1)';
+  ctx.fill();
+
+  // Ring around circle
+  ctx.beginPath();
+  ctx.arc(cx, cy, r + 12 * s, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  ctx.lineWidth = 2 * s;
+  ctx.stroke();
+
+  // YG
+  ctx.fillStyle = '#ffffff';
+  ctx.font = `bold ${190 * s}px Georgia, serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('YG', cx, cy);
+
+  // Yeni Graphics
+  ctx.font = `bold ${72 * s}px Georgia, serif`;
+  ctx.fillStyle = '#ffffff';
+  ctx.textBaseline = 'top';
+  ctx.fillText('Yeni Graphics', cx, 620 * s);
+
+  // Subtitle
+  ctx.font = `${38 * s}px Arial, sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.72)';
+  ctx.fillText('Professional Graphic Design', cx, 710 * s);
+
+  // Divider
+  ctx.beginPath();
+  ctx.moveTo(80 * s, 800 * s);
+  ctx.lineTo((1080 - 80) * s, 800 * s);
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+  ctx.lineWidth = 1.5 * s;
+  ctx.stroke();
+
+  // Services
+  const services = [
+    '❖ Business Flyers · Church Programs',
+    '❖ Birthday Designs · Menus',
+    '❖ Social Media · Logo & Branding',
+  ];
+  ctx.font = `${40 * s}px Arial, sans-serif`;
+  ctx.fillStyle = '#ffffff';
+  services.forEach((line, i) => {
+    ctx.fillText(line, cx, (870 + i * 80) * s);
+  });
+
+  // Divider 2
+  ctx.beginPath();
+  ctx.moveTo(80 * s, 1130 * s);
+  ctx.lineTo((1080 - 80) * s, 1130 * s);
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+  ctx.lineWidth = 1.5 * s;
+  ctx.stroke();
+
+  // Coral pill — STARTING FROM
+  const pillW = 700 * s, pillH = 80 * s;
+  const pillX = (W - pillW) / 2, pillY = 1180 * s;
+  ctx.beginPath();
+  ctx.roundRect(pillX, pillY, pillW, pillH, 40 * s);
+  ctx.fillStyle = '#fb6f5d';
+  ctx.fill();
+  ctx.font = `bold ${40 * s}px Arial, sans-serif`;
+  ctx.fillStyle = '#ffffff';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('STARTING FROM ₦5,000', cx, pillY + pillH / 2);
+
+  // Delivered line
+  ctx.font = `${42 * s}px Arial, sans-serif`;
+  ctx.fillStyle = '#ffffff';
+  ctx.textBaseline = 'top';
+  ctx.fillText('Delivered in 24 hours 🚀', cx, 1300 * s);
+
+  // Divider 3
+  ctx.beginPath();
+  ctx.moveTo(80 * s, 1430 * s);
+  ctx.lineTo((1080 - 80) * s, 1430 * s);
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+  ctx.lineWidth = 1.5 * s;
+  ctx.stroke();
+
+  // URL box
+  const boxW = 800 * s, boxH = 90 * s;
+  const boxX = (W - boxW) / 2, boxY = 1470 * s;
+  ctx.beginPath();
+  ctx.roundRect(boxX, boxY, boxW, boxH, 18 * s);
+  ctx.fillStyle = 'rgba(0,0,0,0.25)';
+  ctx.fill();
+  ctx.font = `bold ${40 * s}px Arial, sans-serif`;
+  ctx.fillStyle = '#15b6a6';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('yeni-graphics.vercel.app', cx, boxY + boxH / 2);
+
+  // WhatsApp number
+  ctx.font = `${36 * s}px Arial, sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
+  ctx.textBaseline = 'top';
+  ctx.fillText('WhatsApp: 08054965524', cx, 1590 * s);
+
+  // Swipe up
+  ctx.font = `bold ${44 * s}px Arial, sans-serif`;
+  ctx.fillStyle = '#fb6f5d';
+  ctx.fillText('Tap to order →', cx, 1710 * s);
+
+  // Bottom bar
+  const barGrad = ctx.createLinearGradient(0, 1840 * s, W, 1920 * s);
+  barGrad.addColorStop(0, '#15b6a6');
+  barGrad.addColorStop(1, '#fb6f5d');
+  ctx.fillStyle = barGrad;
+  ctx.fillRect(0, 1840 * s, W, 80 * s);
+  ctx.font = `bold ${36 * s}px Arial, sans-serif`;
+  ctx.fillStyle = '#ffffff';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('Yeni Graphics · Samuel Omoyeni', cx, 1880 * s);
+}
+
+// Draw preview at scale 0.222 (240/1080)
+const preview = document.getElementById('previewCanvas');
+drawCard(preview, 240 / 1080);
+
+function downloadCard() {
+  const canvas = document.createElement('canvas');
+  drawCard(canvas, 1);
+  const link = document.createElement('a');
+  link.download = 'YeniGraphics-Story.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+</script>
+</body>
+</html>
