@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Yeni Graphics — Outreach Templates</title>
+<style>
+:root{--teal:#15b6a6;--coral:#fb6f5d;--navy:#123b56;--cream:#f4efe7;--ink:#161824;--soft:#4a4d5e;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);}
+header{background:linear-gradient(135deg,var(--navy),#0d6f6c);color:#fff;padding:32px 24px;text-align:center;}
+header h1{font-size:1.8rem;font-weight:700;}
+header p{margin-top:8px;opacity:.8;font-size:.95rem;}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px;}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
+.tab{padding:10px 22px;border-radius:50px;border:1.6px solid rgba(22,24,36,.18);
+  background:transparent;color:var(--soft);font-size:.9rem;font-weight:600;cursor:pointer;transition:.2s;}
+.tab.active,.tab:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.section{display:none;}.section.active{display:block;}
+.card{background:#fff;border-radius:18px;padding:24px;margin-bottom:20px;
+  box-shadow:0 8px 24px -8px rgba(22,24,36,.12);border:1px solid rgba(22,24,36,.06);}
+.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
+.card-title{font-size:1.05rem;font-weight:700;color:var(--navy);}
+.badge{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 12px;border-radius:50px;background:rgba(21,182,166,.13);color:#0e7d77;}
+.msg{background:var(--cream);border-radius:12px;padding:16px;font-size:.93rem;
+  line-height:1.7;color:var(--ink);white-space:pre-wrap;border-left:3px solid var(--teal);}
+.copy-btn{margin-top:12px;padding:10px 22px;border-radius:50px;border:none;
+  background:var(--coral);color:#fff;font-weight:600;font-size:.88rem;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:7px;}
+.copy-btn:hover{background:#e8523f;transform:translateY(-2px);}
+.copy-btn.copied{background:#2e7d32;}
+.tip{background:rgba(21,182,166,.08);border:1px solid rgba(21,182,166,.25);
+  border-radius:12px;padding:14px 18px;margin-bottom:24px;font-size:.9rem;color:#0e7d77;line-height:1.6;}
+.tip strong{font-weight:700;}
+h2{font-size:1.3rem;font-weight:700;margin-bottom:18px;color:var(--navy);}
+</style>
+</head>
+<body>
+<header>
+  <h1>📨 Yeni Graphics — Outreach Templates</h1>
+  <p>Copy, personalise and send. These messages are designed to get replies.</p>
+</header>
+<div class="wrap">
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('whatsapp')">💬 WhatsApp Messages</button>
+    <button class="tab" onclick="showTab('instagram')">📸 Instagram Captions</button>
+    <button class="tab" onclick="showTab('facebook')">👥 Facebook Posts</button>
+    <button class="tab" onclick="showTab('tips')">💡 Strategy Tips</button>
+  </div>
+
+  <!-- WHATSAPP -->
+  <div class="section active" id="whatsapp">
+    <div class="tip">
+      <strong>How to use:</strong> Replace [Name] and [Business Name] with the actual details. Keep it personal — people ignore copy-paste messages that feel generic. Send with your portfolio link: <strong>https://samuelomoyeni09-pixel.github.io/Yeni-Graphics</strong>
+    </div>
+    <h2>💬 WhatsApp Outreach Messages</h2>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">💇 Hair Salons & Beauty</span><span class="badge">Salons</span></div>
+      <div class="msg" id="msg1">Hi [Name] 👋
+
+I came across [Salon Name] and I love what you do!
+
+I'm Samuel from Yeni Graphics — I design professional flyers for salons and beauty businesses. I've worked with clients like FD Beauty Luxe and Joy's Hairlux.
+
+A good flyer brings more walk-ins, more bookings, and more sales 📈
+
+Prices start from just ₦5,000 and I deliver to your WhatsApp in 24hrs.
+
+Can I show you some of my work? 🎨</div>
+      <button class="copy-btn" onclick="copyMsg('msg1',this)">📋 Copy Message</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">🍽️ Restaurants & Food Vendors</span><span class="badge">Food</span></div>
+      <div class="msg" id="msg2">Hi [Name] 👋
+
+I noticed [Business Name] and your food looks amazing — but great food deserves great promotion!
+
+I'm Samuel from Yeni Graphics. I design eye-catching menus, price lists and promo flyers for food businesses. I've designed for Vickie Taste and other food vendors.
+
+Starting from ₦5,000. Delivered straight to your WhatsApp 📲
+
+Want to see some samples?</div>
+      <button class="copy-btn" onclick="copyMsg('msg2',this)">📋 Copy Message</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">✝️ Churches & Ministries</span><span class="badge">Church</span></div>
+      <div class="msg" id="msg3">Good day [Pastor/Bro/Sis Name] 🙏
+
+I'm Samuel from Yeni Graphics. I design professional flyers for church programs — crusades, harvest, conventions, Sunday services and special events.
+
+I've worked with CAC ONA-IYE and other ministries here in Nigeria. Clean, bold, Spirit-filled designs that attract attendance.
+
+Starting from ₦5,000. Would you like to see my portfolio? ✝️</div>
+      <button class="copy-btn" onclick="copyMsg('msg3',this)">📋 Copy Message</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">🎉 Event Planners</span><span class="badge">Events</span></div>
+      <div class="msg" id="msg4">Hi [Name] 👋
+
+I'm Samuel from Yeni Graphics — I design event flyers, birthday designs and promo graphics.
+
+If you're planning an event, I can make sure it gets the attention it deserves. Bold design, fast delivery, affordable price.
+
+Portfolio 👉 https://samuelomoyeni09-pixel.github.io/Yeni-Graphics
+
+Starting from ₦5,000. Let's talk? 🎉</div>
+      <button class="copy-btn" onclick="copyMsg('msg4',this)">📋 Copy Message</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">👗 Fashion & Clothing</span><span class="badge">Fashion</span></div>
+      <div class="msg" id="msg5">Hi [Name] 👋
+
+Love what you do! Your brand deserves a flyer that stops people mid-scroll 🔥
+
+I'm Samuel from Yeni Graphics — I design bold promotional flyers and promo graphics for fashion brands.
+
+Great flyer = more DMs, more sales, more customers.
+
+Starting from ₦5,000. Delivered to your WhatsApp in 24hrs 📲
+
+Can I send you some samples?</div>
+      <button class="copy-btn" onclick="copyMsg('msg5',this)">📋 Copy Message</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">📚 Schools & Tutorial Centres</span><span class="badge">Education</span></div>
+      <div class="msg" id="msg6">Hello [Name] 👋
+
+I'm Samuel, a graphic designer based in Nigeria.
+
+I create professional flyers for schools, tutorial centres and academic businesses — enrollment flyers, event posters, awareness campaigns and more.
+
+It's a great way to attract more students and look more credible 📚
+
+Starting from ₦5,000. Want to see samples?</div>
+      <button class="copy-btn" onclick="copyMsg('msg6',this)">📋 Copy Message</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">🔁 Follow-Up Message</span><span class="badge">Follow Up</span></div>
+      <div class="msg" id="msg7">Hi [Name] 👋
+
+Just following up on my last message 😊
+
+I'd love to help [Business Name] get more visibility with a professional design. Even a simple ₦5,000 flyer can bring in more customers.
+
+No commitment — I can show you a quick sample concept first. Let me know! 🎨</div>
+      <button class="copy-btn" onclick="copyMsg('msg7',this)">📋 Copy Message</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">📣 WhatsApp Broadcast (to your contacts)</span><span class="badge">Broadcast</span></div>
+      <div class="msg" id="msg8">Hi everyone 👋
+
+I'm Samuel — the designer behind Yeni Graphics 🎨
+
+I create professional flyers, birthday designs, church programs, menus and social media graphics.
+
+✅ Bold, eye-catching designs
+✅ Delivered to your WhatsApp in 24hrs
+✅ Starting from just ₦5,000
+✅ Unlimited revisions until you're happy
+
+See my work 👉 https://samuelomoyeni09-pixel.github.io/Yeni-Graphics
+
+If you or anyone you know needs a design, please reach out! Referrals are welcome 🙏</div>
+      <button class="copy-btn" onclick="copyMsg('msg8',this)">📋 Copy Message</button>
+    </div>
+  </div>
+
+  <!-- INSTAGRAM -->
+  <div class="section" id="instagram">
+    <div class="tip">
+      <strong>Post at least 3x per week.</strong> Always add your WhatsApp number in your bio. Use the hashtags at the bottom of each caption — they help new people find you.
+    </div>
+    <h2>📸 Instagram Captions</h2>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">🔥 Hook Post (stops the scroll)</span><span class="badge">Attention</span></div>
+      <div class="msg" id="ig1">Your business deserves a flyer that STOPS the scroll 🔥
+
+I design bold, professional flyers for businesses, churches, events and birthdays — delivered straight to your WhatsApp in 24hrs.
+
+Starting from just ₦5,000 💸
+
+📲 DM me "FLYER" to get started
+🔗 Full portfolio in bio
+
+.
+.
+.
+#GraphicDesigner #NigeriaDesigner #FlyerDesign #BusinessFlyer #YeniGraphics #DesignNigeria #ChurchFlyer #BirthdayFlyer #NaijaDesigner #AbujaDesigner #LagosDesigner #GraphicDesignNigeria</div>
+      <button class="copy-btn" onclick="copyMsg('ig1',this)">📋 Copy Caption</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">💰 Price Reveal Post</span><span class="badge">Pricing</span></div>
+      <div class="msg" id="ig2">How much does a professional flyer cost? 👀
+
+Basic → ₦5,000 ✅
+Standard → ₦10,000 ✅
+Premium → ₦20,000 ✅
+
+All include:
+📦 HD file delivered to WhatsApp
+✏️ Free revisions
+⚡ 24hr turnaround
+
+You spend ₦5,000 on a flyer, you could gain 10 new customers. That's ROI 💰
+
+DM me to order yours today!
+
+.
+.
+.
+#FlyerDesign #NigeriaDesigner #AffordableDesign #GraphicDesigner #YeniGraphics #NaijaDesigner #DesignNigeria</div>
+      <button class="copy-btn" onclick="copyMsg('ig2',this)">📋 Copy Caption</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">✅ Work Delivered Post</span><span class="badge">Portfolio</span></div>
+      <div class="msg" id="ig3">Another one delivered ✅🔥
+
+[Client/Project Name] — done and delivered in under 24 hours!
+
+This is what your business could look like with a professional flyer 👆
+
+Need yours? DM me NOW 📲
+Starting from ₦5,000
+
+.
+.
+.
+#FlyerDesign #GraphicDesigner #Nigeria #YeniGraphics #BusinessFlyer #NaijaDesigner #DesignWork #CreativeNigeria</div>
+      <button class="copy-btn" onclick="copyMsg('ig3',this)">📋 Copy Caption</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">🧠 Value Post (builds trust)</span><span class="badge">Education</span></div>
+      <div class="msg" id="ig4">If your business doesn't have a professional flyer, you're leaving money on the table 💰
+
+Here's why a good flyer matters:
+→ Makes your business look trustworthy
+→ Attracts more customers on WhatsApp & Instagram
+→ Gets people to take you seriously
+→ Works 24/7 even when you're asleep
+
+And it costs less than your next meal out 😅
+
+Starting from ₦5,000. DM me to get yours 📲
+
+.
+.
+.
+#BusinessTips #GraphicDesigner #NigeriaDesigner #FlyerDesign #BusinessGrowth #YeniGraphics #SmallBusinessNigeria</div>
+      <button class="copy-btn" onclick="copyMsg('ig4',this)">📋 Copy Caption</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">🎂 Birthday Design Post</span><span class="badge">Birthday</span></div>
+      <div class="msg" id="ig5">Make your loved one feel SPECIAL this birthday 🎂🎉
+
+I design personalised birthday flyers with their photo — bold, beautiful and made just for them.
+
+Send it on WhatsApp, post it on your status, print it out — whatever you like!
+
+Starting from ₦5,000 📲
+DM me "BIRTHDAY" to order
+
+.
+.
+.
+#BirthdayFlyer #BirthdayDesign #GraphicDesigner #NigeriaDesigner #YeniGraphics #BirthdayNigeria #FlyerDesign #NaijaDesigner</div>
+      <button class="copy-btn" onclick="copyMsg('ig5',this)">📋 Copy Caption</button>
+    </div>
+  </div>
+
+  <!-- FACEBOOK -->
+  <div class="section" id="facebook">
+    <div class="tip">
+      <strong>Facebook tip:</strong> Post in local buy/sell groups and business groups in your city. Always include your WhatsApp number directly in the post — Facebook people prefer calling/WhatsApp over DM.
+    </div>
+    <h2>👥 Facebook Group Posts</h2>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">📌 Service Introduction Post</span><span class="badge">General</span></div>
+      <div class="msg" id="fb1">Hello everyone! 👋
+
+My name is Samuel Omoyeni and I'm a professional graphic designer based in Nigeria 🇳🇬
+
+I design:
+✅ Business flyers & promos
+✅ Church & event programs
+✅ Birthday designs
+✅ Menus & price lists
+✅ Social media graphics
+✅ Logos & branding
+
+💰 Starting from just ₦5,000
+⚡ Delivered to your WhatsApp in 24 hours
+🔄 Revisions included until you're satisfied
+
+See my work 👉 https://samuelomoyeni09-pixel.github.io/Yeni-Graphics
+
+📲 WhatsApp: 08054965524
+
+Please tag anyone who needs a design! 🙏</div>
+      <button class="copy-btn" onclick="copyMsg('fb1',this)">📋 Copy Post</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">🔥 Flash Sale / Promo Post</span><span class="badge">Promo</span></div>
+      <div class="msg" id="fb2">🔥 SPECIAL OFFER — This Week Only!
+
+Get a professional flyer designed for your business for just ₦4,000 (normally ₦5,000)!
+
+I'm Samuel from Yeni Graphics. I've designed for businesses, churches and events across Nigeria 🇳🇬
+
+What you get:
+✅ High quality, bold design
+✅ Your photos & text included
+✅ 2 free revisions
+✅ HD file on WhatsApp in 24hrs
+
+📲 WhatsApp me NOW: 08054965524
+🔗 Portfolio: https://samuelomoyeni09-pixel.github.io/Yeni-Graphics
+
+Tag a business owner who needs this! 👇</div>
+      <button class="copy-btn" onclick="copyMsg('fb2',this)">📋 Copy Post</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">🤝 Referral Request Post</span><span class="badge">Referral</span></div>
+      <div class="msg" id="fb3">Hello friends and family 🙏
+
+I'm Samuel — I design professional flyers, birthday graphics, church programs and business promos.
+
+I'm actively looking for new clients and I'd really appreciate any referrals 🙏
+
+If you know anyone who needs a design — a business owner, event planner, church, school, or anyone — please send them my number:
+
+📲 08054965524 (WhatsApp)
+🔗 https://samuelomoyeni09-pixel.github.io/Yeni-Graphics
+
+Starting from ₦5,000. God bless you for sharing! 🙌</div>
+      <button class="copy-btn" onclick="copyMsg('fb3',this)">📋 Copy Post</button>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="section" id="tips">
+    <h2>💡 Strategy Tips — How to Get Clients Fast</h2>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">📍 Where to Find Businesses to DM</span></div>
+      <div class="msg" id="tip1">INSTAGRAM:
+→ Search your city + "salon", "restaurant", "fashion", "events", "church"
+→ Look at businesses with few followers or no professional flyer
+→ DM them with the WhatsApp template
+
+FACEBOOK:
+→ Join local buy/sell groups (e.g. "Buy & Sell Abuja", "Lagos Marketplace")
+→ Join church/business groups in your area
+→ Post the Facebook templates above
+
+PHYSICALLY:
+→ Walk into local salons, restaurants, print shops
+→ Show them your portfolio on your phone
+→ Offer to design one for free or very cheap as a sample
+
+WHATSAPP:
+→ Send the broadcast message to ALL your contacts
+→ Ask friends to forward it to their contacts
+→ Post the Instagram captions as your WhatsApp Status daily</div>
+      <button class="copy-btn" onclick="copyMsg('tip1',this)">📋 Copy Tips</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">⏰ Daily Outreach Routine (30 mins/day)</span></div>
+      <div class="msg" id="tip2">MORNING (15 mins):
+→ Post 1 design on Instagram with a caption from the templates
+→ Share the same post to your WhatsApp Status
+
+AFTERNOON (10 mins):
+→ Find 5 businesses on Instagram that have no good flyer
+→ Send them the WhatsApp/DM message (personalised!)
+
+EVENING (5 mins):
+→ Follow up on anyone who opened but didn't reply
+→ Check your Lead Tracker and update statuses
+
+DO THIS EVERY DAY. Even 2 clients per week = ₦7,000–₦20,000/week.</div>
+      <button class="copy-btn" onclick="copyMsg('tip2',this)">📋 Copy Routine</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">🧠 Things That Get More Replies</span></div>
+      <div class="msg" id="tip3">1. PERSONALISE every message. Use their real name and business name.
+
+2. MENTION past clients — "I worked with Vickie Taste and FD Beauty Luxe" builds instant trust.
+
+3. KEEP IT SHORT. Nobody reads long first messages. Get to the point fast.
+
+4. SHOW SAMPLES immediately. Send your best 2-3 designs right in the first message.
+
+5. ASK A QUESTION at the end — "Want to see some samples?" gets a reply. Statements don't.
+
+6. FOLLOW UP once after 2-3 days. Most sales happen on the follow-up.
+
+7. OFFER A FREE SAMPLE for new clients who are hesitant — one free design = long-term client.</div>
+      <button class="copy-btn" onclick="copyMsg('tip3',this)">📋 Copy Tips</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    t.classList.toggle('active', ['whatsapp','instagram','facebook','tips'][i]===id);
+  });
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function copyMsg(id, btn){
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig = btn.innerHTML;
+    btn.innerHTML = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove('copied');},2000);
+  });
+}
+</script>
+</body>
+</html>

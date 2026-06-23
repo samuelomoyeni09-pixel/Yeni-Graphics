@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Yeni Graphics — Lead Tracker</title>
+<style>
+:root{--teal:#15b6a6;--coral:#fb6f5d;--navy:#123b56;--cream:#f4efe7;--ink:#161824;--soft:#4a4d5e;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
+header{background:linear-gradient(135deg,var(--navy),#0d6f6c);color:#fff;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+header h1{font-size:1.5rem;font-weight:700;}
+header p{opacity:.75;font-size:.88rem;margin-top:3px;}
+.header-btns{display:flex;gap:10px;}
+.btn{padding:10px 20px;border-radius:50px;border:none;font-weight:600;font-size:.88rem;cursor:pointer;transition:.2s;}
+.btn-coral{background:var(--coral);color:#fff;}
+.btn-coral:hover{background:#e8523f;transform:translateY(-2px);}
+.btn-outline{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.35);}
+.btn-outline:hover{background:rgba(255,255,255,.25);}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:24px 28px;background:#fff;border-bottom:1px solid rgba(22,24,36,.07);}
+.stat{text-align:center;padding:16px 10px;border-radius:14px;background:var(--cream);}
+.stat .n{font-size:1.8rem;font-weight:700;font-family:'Georgia',serif;}
+.stat .l{font-size:.78rem;color:var(--soft);margin-top:3px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
+.stat.s-all .n{color:var(--navy);}
+.stat.s-new .n{color:#607d8b;}
+.stat.s-contacted .n{color:#ff9800;}
+.stat.s-replied .n{color:var(--teal);}
+.stat.s-converted .n{color:#2e7d32;}
+.main{padding:24px 28px;}
+.toolbar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
+.toolbar input,.toolbar select{
+  padding:10px 14px;border-radius:10px;border:1.6px solid rgba(22,24,36,.14);
+  font-size:.9rem;background:#fff;color:var(--ink);font-family:'Segoe UI',sans-serif;}
+.toolbar input{flex:1;min-width:180px;}
+.filter-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.fb{padding:8px 16px;border-radius:50px;border:1.5px solid rgba(22,24,36,.14);
+  background:transparent;color:var(--soft);font-size:.83rem;font-weight:600;cursor:pointer;transition:.2s;}
+.fb.active,.fb:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.table-wrap{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px -8px rgba(22,24,36,.1);}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--navy);color:#fff;padding:13px 16px;text-align:left;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;font-weight:600;}
+td{padding:13px 16px;font-size:.91rem;border-bottom:1px solid rgba(22,24,36,.06);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(21,182,166,.04);}
+.badge{display:inline-block;padding:4px 11px;border-radius:50px;font-size:.76rem;font-weight:700;}
+.b-new{background:#e3f2fd;color:#1565c0;}
+.b-contacted{background:#fff3e0;color:#e65100;}
+.b-replied{background:#e0f2f1;color:#00695c;}
+.b-converted{background:#e8f5e9;color:#2e7d32;}
+.b-lost{background:#fce4ec;color:#c62828;}
+.actions{display:flex;gap:8px;}
+.act-btn{padding:6px 12px;border-radius:8px;border:none;font-size:.8rem;font-weight:600;cursor:pointer;transition:.2s;}
+.act-edit{background:#e3f2fd;color:#1565c0;}
+.act-edit:hover{background:#1565c0;color:#fff;}
+.act-del{background:#fce4ec;color:#c62828;}
+.act-del:hover{background:#c62828;color:#fff;}
+.act-wa{background:#e8f5e9;color:#2e7d32;}
+.act-wa:hover{background:#25d366;color:#fff;}
+.empty{text-align:center;padding:60px 20px;color:var(--soft);}
+.empty .em-icon{font-size:3rem;margin-bottom:14px;}
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(12,28,40,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;}
+.overlay.open{display:flex;}
+.modal{background:#fff;border-radius:22px;padding:30px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;}
+.modal h2{font-size:1.2rem;font-weight:700;margin-bottom:20px;color:var(--navy);}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 13px;border-radius:10px;
+  border:1.6px solid rgba(22,24,36,.14);font-size:.92rem;
+  font-family:'Segoe UI',sans-serif;color:var(--ink);}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);}
+.field textarea{resize:vertical;min-height:80px;}
+.modal-btns{display:flex;gap:12px;justify-content:flex-end;margin-top:20px;}
+.btn-cancel{background:var(--cream);color:var(--soft);border:1.5px solid rgba(22,24,36,.14);}
+.btn-cancel:hover{background:rgba(22,24,36,.08);}
+@media(max-width:700px){
+  .stats{grid-template-columns:repeat(2,1fr);}
+  table{font-size:.82rem;}
+  th,td{padding:10px 10px;}
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>📋 Lead Tracker — Yeni Graphics</h1>
+    <p>Track every potential client. Follow up. Convert. Make money.</p>
+  </div>
+  <div class="header-btns">
+    <button class="btn btn-outline" onclick="exportCSV()">⬇ Export CSV</button>
+    <button class="btn btn-coral" onclick="openModal()">+ Add Lead</button>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat s-all"><div class="n" id="s-all">0</div><div class="l">Total</div></div>
+  <div class="stat s-new"><div class="n" id="s-new">0</div><div class="l">Not Contacted</div></div>
+  <div class="stat s-contacted"><div class="n" id="s-contacted">0</div><div class="l">Contacted</div></div>
+  <div class="stat s-replied"><div class="n" id="s-replied">0</div><div class="l">Replied</div></div>
+  <div class="stat s-converted"><div class="n" id="s-converted">0</div><div class="l">Converted 💰</div></div>
+</div>
+
+<div class="main">
+  <div class="toolbar">
+    <input type="text" id="searchBox" placeholder="🔍 Search name or business…" oninput="render()"/>
+    <div class="filter-btns">
+      <button class="fb active" onclick="setFilter('all',this)">All</button>
+      <button class="fb" onclick="setFilter('new',this)">Not Contacted</button>
+      <button class="fb" onclick="setFilter('contacted',this)">Contacted</button>
+      <button class="fb" onclick="setFilter('replied',this)">Replied</button>
+      <button class="fb" onclick="setFilter('converted',this)">Converted</button>
+      <button class="fb" onclick="setFilter('lost',this)">Lost</button>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name / Business</th>
+          <th>Type</th>
+          <th>Platform</th>
+          <th>Contact</th>
+          <th>Status</th>
+          <th>Follow-up</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="empty" id="empty" style="display:none">
+      <div class="em-icon">📭</div>
+      <strong>No leads yet</strong>
+      <p style="margin-top:8px;font-size:.9rem">Click "+ Add Lead" to start tracking your outreach</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2 id="modalTitle">Add New Lead</h2>
+    <div class="field"><label>Client / Business Name *</label><input id="f-name" placeholder="e.g. Joy's Hairlux"/></div>
+    <div class="field"><label>Contact Person</label><input id="f-contact" placeholder="e.g. Joy Adeyemi"/></div>
+    <div class="field"><label>WhatsApp / Phone</label><input id="f-phone" placeholder="e.g. 0803 000 0000"/></div>
+    <div class="field">
+      <label>Business Type</label>
+      <select id="f-type">
+        <option value="">Select type</option>
+        <option>Salon / Beauty</option>
+        <option>Restaurant / Food</option>
+        <option>Church / Ministry</option>
+        <option>Event Planner</option>
+        <option>Fashion / Clothing</option>
+        <option>School / Tutorial</option>
+        <option>Other Business</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Platform (where you found them)</label>
+      <select id="f-platform">
+        <option value="">Select platform</option>
+        <option>Instagram</option>
+        <option>Facebook</option>
+        <option>WhatsApp</option>
+        <option>Referral</option>
+        <option>Walk-in</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Status</label>
+      <select id="f-status">
+        <option value="new">Not Contacted</option>
+        <option value="contacted">Contacted</option>
+        <option value="replied">Replied</option>
+        <option value="converted">Converted 💰</option>
+        <option value="lost">Lost / No Reply</option>
+      </select>
+    </div>
+    <div class="field"><label>Follow-up Date</label><input type="date" id="f-followup"/></div>
+    <div class="field"><label>Notes</label><textarea id="f-notes" placeholder="Any extra info — what they need, what was discussed, etc."></textarea></div>
+    <div class="modal-btns">
+      <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-coral" onclick="saveLead()">Save Lead</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let leads = JSON.parse(localStorage.getItem('yg-leads') || '[]');
+let editId = null;
+let currentFilter = 'all';
+
+const STATUS_LABELS = {new:'Not Contacted',contacted:'Contacted',replied:'Replied',converted:'Converted',lost:'Lost'};
+const STATUS_CLASS  = {new:'b-new',contacted:'b-contacted',replied:'b-replied',converted:'b-converted',lost:'b-lost'};
+
+function save(){ localStorage.setItem('yg-leads', JSON.stringify(leads)); }
+
+function updateStats(){
+  const counts = {new:0,contacted:0,replied:0,converted:0,lost:0};
+  leads.forEach(l => { if(counts[l.status]!==undefined) counts[l.status]++; });
+  document.getElementById('s-all').textContent = leads.length;
+  document.getElementById('s-new').textContent = counts.new;
+  document.getElementById('s-contacted').textContent = counts.contacted;
+  document.getElementById('s-replied').textContent = counts.replied;
+  document.getElementById('s-converted').textContent = counts.converted;
+}
+
+function render(){
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  let filtered = leads.filter(l => {
+    const matchFilter = currentFilter === 'all' || l.status === currentFilter;
+    const matchSearch = !q || l.name.toLowerCase().includes(q) || (l.contact||'').toLowerCase().includes(q);
+    return matchFilter && matchSearch;
+  });
+
+  const tbody = document.getElementById('tbody');
+  const empty = document.getElementById('empty');
+
+  if(!filtered.length){ tbody.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+
+  tbody.innerHTML = filtered.map((l,i) => {
+    const followup = l.followup ? `<span style="font-size:.82rem;color:${new Date(l.followup)<new Date()?'#c62828':'#2e7d32'}">${l.followup}</span>` : '—';
+    const waLink = l.phone ? `<button class="act-btn act-wa" onclick="window.open('https://wa.me/234${l.phone.replace(/^0/,'').replace(/\s/g,'')}','_blank')" title="Open WhatsApp">💬</button>` : '';
+    return `<tr>
+      <td style="color:var(--soft);font-size:.82rem">${i+1}</td>
+      <td><strong>${l.name}</strong>${l.contact?`<br><span style="font-size:.8rem;color:var(--soft)">${l.contact}</span>`:''}</td>
+      <td style="font-size:.85rem">${l.type||'—'}</td>
+      <td style="font-size:.85rem">${l.platform||'—'}</td>
+      <td style="font-size:.85rem">${l.phone||'—'}</td>
+      <td><span class="badge ${STATUS_CLASS[l.status]}">${STATUS_LABELS[l.status]}</span></td>
+      <td>${followup}</td>
+      <td><div class="actions">
+        ${waLink}
+        <button class="act-btn act-edit" onclick="openModal(${leads.indexOf(l)})">✏️</button>
+        <button class="act-btn act-del" onclick="deleteLead(${leads.indexOf(l)})">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+  updateStats();
+}
+
+function setFilter(f, btn){
+  currentFilter = f;
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function openModal(idx){
+  editId = idx !== undefined ? idx : null;
+  document.getElementById('modalTitle').textContent = editId !== null ? 'Edit Lead' : 'Add New Lead';
+  const l = editId !== null ? leads[editId] : {};
+  document.getElementById('f-name').value     = l.name     || '';
+  document.getElementById('f-contact').value  = l.contact  || '';
+  document.getElementById('f-phone').value    = l.phone    || '';
+  document.getElementById('f-type').value     = l.type     || '';
+  document.getElementById('f-platform').value = l.platform || '';
+  document.getElementById('f-status').value   = l.status   || 'new';
+  document.getElementById('f-followup').value = l.followup || '';
+  document.getElementById('f-notes').value    = l.notes    || '';
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+
+function saveLead(){
+  const name = document.getElementById('f-name').value.trim();
+  if(!name){ alert('Please enter a name or business name.'); return; }
+  const lead = {
+    id: editId !== null ? leads[editId].id : Date.now(),
+    name,
+    contact:  document.getElementById('f-contact').value.trim(),
+    phone:    document.getElementById('f-phone').value.trim(),
+    type:     document.getElementById('f-type').value,
+    platform: document.getElementById('f-platform').value,
+    status:   document.getElementById('f-status').value,
+    followup: document.getElementById('f-followup').value,
+    notes:    document.getElementById('f-notes').value.trim(),
+    added:    editId !== null ? leads[editId].added : new Date().toISOString().split('T')[0]
+  };
+  if(editId !== null) leads[editId] = lead;
+  else leads.unshift(lead);
+  save(); closeModal(); render(); updateStats();
+}
+
+function deleteLead(idx){
+  if(!confirm(`Delete "${leads[idx].name}"?`)) return;
+  leads.splice(idx,1); save(); render(); updateStats();
+}
+
+function exportCSV(){
+  const headers = ['Name','Contact','Phone','Type','Platform','Status','Follow-up','Notes','Date Added'];
+  const rows = leads.map(l => [l.name,l.contact,l.phone,l.type,l.platform,STATUS_LABELS[l.status],l.followup,l.notes,l.added].map(v=>`"${(v||'').replace(/"/g,'""')}"`));
+  const csv = [headers, ...rows].map(r=>r.join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'yeni-leads-' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+}
+
+document.getElementById('overlay').addEventListener('click', e => {
+  if(e.target === document.getElementById('overlay')) closeModal();
+});
+
+render(); updateStats();
+</script>
+</body>
+</html>
