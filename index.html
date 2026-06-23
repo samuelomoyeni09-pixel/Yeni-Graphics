@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Yeni Graphics — Samuel Omoyeni, Graphic Designer</title>
 <meta name="description" content="Yeni Graphics — bold flyer, branding and visual design for businesses, churches and events by Samuel Omoyeni." />
+<!-- SEO / Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://yeni-graphics.vercel.app/"/>
+<meta property="og:title" content="Yeni Graphics — Bold Flyer & Branding Design | Samuel Omoyeni"/>
+<meta property="og:description" content="Professional flyer, branding and visual design for businesses, churches and events. Starting from ₦5,000. Delivered in 24hrs."/>
+<meta property="og:image" content="https://yeni-graphics.vercel.app/images/yeni.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Yeni Graphics — Bold Flyer & Branding Design"/>
+<meta name="twitter:description" content="Professional flyer, branding and visual design. Starting from ₦5,000. Delivered in 24hrs."/>
+<link rel="canonical" href="https://yeni-graphics.vercel.app/"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -13,6 +23,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
+
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- ================= NAV ================= -->
 <nav>
@@ -30,6 +44,7 @@
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-cta">
+      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">☀️</button>
       <a href="#contact" class="btn btn-ink">Let's talk</a>
       <button class="burger" id="burger" aria-label="Menu">
         <span></span><span></span><span></span>

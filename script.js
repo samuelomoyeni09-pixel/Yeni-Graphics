@@ -248,3 +248,43 @@ if (backTop) {
   backTop.addEventListener('click', () =>
     window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
+
+/* =====================================================
+   DARK MODE TOGGLE
+   ===================================================== */
+const darkToggle = document.getElementById('darkToggle');
+const savedTheme = localStorage.getItem('yg-theme') || 'light';
+document.documentElement.dataset.theme = savedTheme;
+darkToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+darkToggle.addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem('yg-theme', next);
+  darkToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+});
+
+/* =====================================================
+   CUSTOM CURSOR
+   ===================================================== */
+const cursorDot  = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+
+if (cursorDot && window.matchMedia('(pointer:fine)').matches) {
+  document.addEventListener('mousemove', e => {
+    cursorDot.style.left  = e.clientX + 'px';
+    cursorDot.style.top   = e.clientY + 'px';
+    cursorRing.style.left = e.clientX + 'px';
+    cursorRing.style.top  = e.clientY + 'px';
+  });
+  document.addEventListener('mousedown', () => cursorRing.classList.add('clicking'));
+  document.addEventListener('mouseup',   () => cursorRing.classList.remove('clicking'));
+  document.addEventListener('mouseleave', () => {
+    cursorDot.style.opacity  = '0';
+    cursorRing.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    cursorDot.style.opacity  = '1';
+    cursorRing.style.opacity = '1';
+  });
+}

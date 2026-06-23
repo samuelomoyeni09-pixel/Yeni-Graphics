@@ -521,3 +521,55 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.62);padding:58px 0 32
   .wa-float{bottom:18px;right:18px;}
   .back-top{bottom:18px;left:18px;}
 }
+
+/* ══════════════════════════════════════════
+   DARK MODE
+══════════════════════════════════════════ */
+[data-theme="dark"]{
+  --cream:#13151f;
+  --cream-card:#1a1d2e;
+  --ink:#e8eaf0;
+  --ink-soft:#9295a8;
+  --navy:#1e2a45;
+  --navy-deep:#0e1628;
+  --shadow:0 30px 60px -20px rgba(0,0,0,.55);
+  --shadow-sm:0 12px 30px -12px rgba(0,0,0,.42);
+}
+[data-theme="dark"] nav{background:rgba(19,21,31,.88);}
+[data-theme="dark"] .hero-shell{background:var(--cream-card);}
+[data-theme="dark"] .hero-stats{background:#1a1d2e;}
+[data-theme="dark"] .stat{background:#13151f;}
+[data-theme="dark"] .order-form input,
+[data-theme="dark"] .order-form select,
+[data-theme="dark"] .order-form textarea{background:#13151f;color:var(--ink);border-color:rgba(255,255,255,.12);}
+[data-theme="dark"] .filter-btn{color:var(--ink-soft);border-color:rgba(255,255,255,.12);}
+[data-theme="dark"] .filter-btn.active{background:var(--teal);border-color:var(--teal);}
+
+.dark-toggle{
+  width:40px;height:40px;border-radius:50%;border:1.6px solid rgba(22,24,36,.14);
+  background:transparent;font-size:1.1rem;cursor:pointer;transition:.25s;
+  display:grid;place-items:center;
+}
+[data-theme="dark"] .dark-toggle{border-color:rgba(255,255,255,.15);}
+.dark-toggle:hover{background:rgba(22,24,36,.07);}
+
+/* ══════════════════════════════════════════
+   CUSTOM CURSOR  (desktop only)
+══════════════════════════════════════════ */
+@media(pointer:fine){
+  body{cursor:none;}
+  a,button,label,[role="button"],[type="submit"]{cursor:none;}
+  .cursor-dot{
+    position:fixed;top:0;left:0;width:8px;height:8px;
+    background:var(--coral);border-radius:50%;pointer-events:none;
+    transform:translate(-50%,-50%);z-index:9999;
+    transition:transform .08s ease,opacity .25s ease;
+  }
+  .cursor-ring{
+    position:fixed;top:0;left:0;width:36px;height:36px;
+    border:2px solid rgba(251,111,93,.5);border-radius:50%;pointer-events:none;
+    transform:translate(-50%,-50%);z-index:9998;
+    transition:left .14s ease,top .14s ease,width .25s ease,height .25s ease,opacity .25s ease;
+  }
+  .cursor-ring.clicking{width:26px;height:26px;}
+}

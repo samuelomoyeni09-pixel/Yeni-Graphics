@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Invoice Generator — Yeni Graphics</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+<style>
+:root{--teal:#15b6a6;--coral:#fb6f5d;--navy:#123b56;--cream:#f4efe7;--ink:#161824;--soft:#4a4d5e;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
+header{background:linear-gradient(135deg,var(--navy),#0d6f6c);color:#fff;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;}
+header h1{font-family:'Bricolage Grotesque';font-size:1.4rem;font-weight:700;}
+header p{opacity:.75;font-size:.85rem;margin-top:3px;}
+.layout{display:grid;grid-template-columns:420px 1fr;gap:28px;padding:28px;max-width:1200px;margin:0 auto;}
+.form-panel{background:#fff;border-radius:20px;padding:28px;box-shadow:0 8px 28px -8px rgba(22,24,36,.12);}
+.form-panel h2{font-family:'Bricolage Grotesque';font-size:1.1rem;font-weight:700;margin-bottom:20px;color:var(--navy);}
+.field{margin-bottom:14px;}
+.field label{display:block;font-weight:600;font-size:.85rem;margin-bottom:5px;color:var(--ink);}
+.field input,.field select,.field textarea{
+  width:100%;padding:10px 13px;border-radius:10px;
+  border:1.6px solid rgba(22,24,36,.14);
+  font-family:'Hanken Grotesk';font-size:.93rem;color:var(--ink);
+  background:#fafafa;transition:border-color .2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);}
+.field textarea{resize:vertical;min-height:70px;}
+#customAmountWrap{display:none;}
+.btn{width:100%;padding:13px;border-radius:50px;border:none;font-weight:700;font-size:.95rem;cursor:pointer;transition:.2s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-coral{background:var(--coral);color:#fff;}
+.btn-coral:hover{background:#e8523f;transform:translateY(-2px);}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:#0c2a3d;transform:translateY(-2px);}
+.btn-wa{background:#25d366;color:#fff;}
+.btn-wa:hover{background:#1da851;transform:translateY(-2px);}
+.btn-row{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+
+/* ── Invoice Preview ── */
+.preview-panel{background:#fff;border-radius:20px;padding:32px;box-shadow:0 8px 28px -8px rgba(22,24,36,.12);}
+.invoice{background:#fff;max-width:700px;margin:0 auto;font-family:'Hanken Grotesk',sans-serif;}
+.inv-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:3px solid var(--teal);}
+.inv-brand .name{font-family:'Bricolage Grotesque';font-size:1.8rem;font-weight:700;color:var(--navy);}
+.inv-brand .sub{font-size:.82rem;color:var(--soft);letter-spacing:.08em;text-transform:uppercase;margin-top:3px;}
+.inv-meta{text-align:right;}
+.inv-title{font-family:'Bricolage Grotesque';font-size:2rem;font-weight:700;color:var(--teal);line-height:1;}
+.inv-num{font-size:.85rem;color:var(--soft);margin-top:5px;}
+.inv-date{font-size:.85rem;color:var(--soft);}
+
+.inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;}
+.inv-from,.inv-to{padding:18px;border-radius:12px;background:var(--cream);}
+.inv-from h4,.inv-to h4{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:8px;}
+.inv-from p,.inv-to p{font-size:.92rem;line-height:1.7;color:var(--ink);}
+.inv-from strong,.inv-to strong{font-family:'Bricolage Grotesque';font-size:1.02rem;display:block;}
+
+table.inv-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.inv-table th{background:var(--navy);color:#fff;padding:11px 14px;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-align:left;}
+.inv-table td{padding:13px 14px;font-size:.92rem;border-bottom:1px solid rgba(22,24,36,.07);}
+.inv-table .amount{text-align:right;font-weight:700;}
+.inv-table tfoot td{border:none;padding-top:16px;}
+.total-row td{font-family:'Bricolage Grotesque';font-size:1.25rem;font-weight:700;color:var(--navy);border-top:2px solid var(--teal);padding-top:12px;}
+.total-row td.amount{color:var(--coral);}
+
+.inv-note{background:rgba(21,182,166,.09);border-left:3px solid var(--teal);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.88rem;color:var(--soft);margin-bottom:20px;line-height:1.6;}
+.inv-foot{text-align:center;padding-top:20px;border-top:1px solid rgba(22,24,36,.08);}
+.inv-foot p{font-size:.88rem;color:var(--soft);}
+.inv-foot .thanks{font-family:'Bricolage Grotesque';font-size:1.1rem;color:var(--navy);font-weight:700;margin-bottom:6px;}
+
+@media print{
+  .no-print{display:none !important;}
+  body{background:#fff;}
+  .layout{grid-template-columns:1fr;padding:0;}
+  .preview-panel{box-shadow:none;padding:0;border-radius:0;}
+  .form-panel{display:none;}
+}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<header class="no-print">
+  <div>
+    <h1><i class="fa-solid fa-file-invoice"></i> Invoice Generator</h1>
+    <p>Yeni Graphics · Professional Design Invoices</p>
+  </div>
+  <a href="https://yeni-graphics.vercel.app" style="color:rgba(255,255,255,.7);font-size:.88rem;">← Back to portfolio</a>
+</header>
+
+<div class="layout">
+  <!-- FORM -->
+  <div class="form-panel no-print">
+    <h2>Invoice Details</h2>
+
+    <div class="field">
+      <label>Client Name</label>
+      <input type="text" id="cName" placeholder="e.g. John Adeyemi" oninput="liveUpdate()"/>
+    </div>
+    <div class="field">
+      <label>Client Phone / WhatsApp</label>
+      <input type="tel" id="cPhone" placeholder="e.g. 08031234567" oninput="liveUpdate()"/>
+    </div>
+    <div class="field">
+      <label>Design Type</label>
+      <select id="cType" onchange="liveUpdate()">
+        <option value="Design Service">Choose design type</option>
+        <option>Business Flyer</option>
+        <option>Church Program</option>
+        <option>Birthday Design</option>
+        <option>Menu / Price List</option>
+        <option>Social Media Design</option>
+        <option>Logo / Branding</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Package</label>
+      <select id="cPackage" onchange="packageChange()">
+        <option value="Basic — ₦5,000" data-amount="5000">Basic — ₦5,000</option>
+        <option value="Standard — ₦10,000" data-amount="10000">Standard — ₦10,000</option>
+        <option value="Premium — ₦20,000" data-amount="20000">Premium — ₦20,000</option>
+        <option value="Custom" data-amount="">Custom</option>
+      </select>
+    </div>
+    <div class="field" id="customAmountWrap">
+      <label>Custom Amount (₦)</label>
+      <input type="number" id="cCustomAmt" placeholder="e.g. 15000" oninput="liveUpdate()"/>
+    </div>
+    <div class="field">
+      <label>Invoice Date</label>
+      <input type="date" id="cDate" oninput="liveUpdate()"/>
+    </div>
+    <div class="field">
+      <label>Delivery Deadline</label>
+      <input type="date" id="cDeadline" oninput="liveUpdate()"/>
+    </div>
+    <div class="field">
+      <label>Notes (optional)</label>
+      <textarea id="cNotes" placeholder="e.g. Includes 2 revisions. Balance due on delivery." oninput="liveUpdate()"></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-navy" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
+      <button class="btn btn-wa" onclick="sendWA()"><i class="fa-brands fa-whatsapp"></i> Send Summary on WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- INVOICE PREVIEW -->
+  <div class="preview-panel">
+    <div class="invoice" id="invoicePreview">
+      <div class="inv-head">
+        <div class="inv-brand">
+          <div class="name">Yeni Graphics</div>
+          <div class="sub">Professional Graphic Design</div>
+        </div>
+        <div class="inv-meta">
+          <div class="inv-title">INVOICE</div>
+          <div class="inv-num" id="invNum">YG-2026-001</div>
+          <div class="inv-date" id="invDate">Date: —</div>
+        </div>
+      </div>
+
+      <div class="inv-parties">
+        <div class="inv-from">
+          <h4>From</h4>
+          <strong>Samuel Omoyeni</strong>
+          <p>Yeni Graphics<br/>samuelomoyeni.09@gmail.com<br/>WhatsApp: +234 805 496 5524<br/>Nigeria</p>
+        </div>
+        <div class="inv-to">
+          <h4>Bill To</h4>
+          <strong id="previewName">Client Name</strong>
+          <p id="previewContact">Phone / WhatsApp: —</p>
+        </div>
+      </div>
+
+      <table class="inv-table">
+        <thead>
+          <tr><th>Description</th><th>Package</th><th style="text-align:right">Amount</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="previewType">Design Service</td>
+            <td id="previewPkg">Basic</td>
+            <td class="amount" id="previewAmt">₦5,000</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="2"><strong>Total</strong></td>
+            <td class="amount" id="previewTotal">₦5,000</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="inv-note" id="invNoteWrap">
+        <strong>Delivery:</strong> Design delivered via WhatsApp in 24 hours.<br/>
+        <span id="deadlineNote"></span>
+        <span id="customNote"></span>
+      </div>
+
+      <div class="inv-foot">
+        <div class="thanks">Thank you for choosing Yeni Graphics! 🙏</div>
+        <p>It's a pleasure doing business with you. For questions, reach out on WhatsApp: <strong>+234 805 496 5524</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let invoiceCount = parseInt(localStorage.getItem('yg-invoice-count') || '0') + 1;
+localStorage.setItem('yg-invoice-count', invoiceCount);
+const pad = n => String(n).padStart(3,'0');
+const year = new Date().getFullYear();
+document.getElementById('invNum').textContent = `YG-${year}-${pad(invoiceCount)}`;
+
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('cDate').value = today;
+updateDate();
+
+function fmt(dateStr){ if(!dateStr) return '—'; const d=new Date(dateStr+'T00:00:00'); return d.toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}); }
+function fmtMoney(n){ return '₦' + Number(n).toLocaleString('en-NG'); }
+
+function updateDate(){
+  const v = document.getElementById('cDate').value;
+  document.getElementById('invDate').textContent = 'Date: ' + fmt(v);
+}
+
+function packageChange(){
+  const sel = document.getElementById('cPackage');
+  const opt = sel.options[sel.selectedIndex];
+  const wrap = document.getElementById('customAmountWrap');
+  wrap.style.display = opt.value === 'Custom' ? 'block' : 'none';
+  liveUpdate();
+}
+
+function getAmount(){
+  const sel = document.getElementById('cPackage');
+  const opt = sel.options[sel.selectedIndex];
+  if(opt.value === 'Custom'){
+    return parseInt(document.getElementById('cCustomAmt').value) || 0;
+  }
+  return parseInt(opt.dataset.amount) || 0;
+}
+
+function liveUpdate(){
+  const name = document.getElementById('cName').value || 'Client Name';
+  const phone = document.getElementById('cPhone').value || '—';
+  const type = document.getElementById('cType').value || 'Design Service';
+  const pkg = document.getElementById('cPackage').value;
+  const amt = getAmount();
+  const deadline = document.getElementById('cDeadline').value;
+  const notes = document.getElementById('cNotes').value;
+
+  document.getElementById('previewName').textContent = name;
+  document.getElementById('previewContact').textContent = 'Phone / WhatsApp: ' + phone;
+  document.getElementById('previewType').textContent = type;
+  document.getElementById('previewPkg').textContent = pkg;
+  document.getElementById('previewAmt').textContent = fmtMoney(amt);
+  document.getElementById('previewTotal').textContent = fmtMoney(amt);
+
+  const deadlineEl = document.getElementById('deadlineNote');
+  deadlineEl.textContent = deadline ? 'Delivery deadline: ' + fmt(deadline) + '.' : '';
+
+  const noteEl = document.getElementById('customNote');
+  noteEl.textContent = notes ? ' ' + notes : '';
+
+  updateDate();
+}
+
+function sendWA(){
+  const name = document.getElementById('cName').value || 'Client';
+  const type = document.getElementById('cType').value;
+  const pkg = document.getElementById('cPackage').value;
+  const amt = getAmount();
+  const date = document.getElementById('cDate').value;
+  const num = document.getElementById('invNum').textContent;
+  const msg = `Hello ${name}! 👋\n\nHere is your invoice summary from Yeni Graphics:\n\n📄 Invoice: ${num}\n📅 Date: ${fmt(date)}\n🎨 Service: ${type}\n📦 Package: ${pkg}\n💰 Amount: ${fmtMoney(amt)}\n\nThank you for choosing Yeni Graphics! 🙏\nPortfolio: https://yeni-graphics.vercel.app`;
+  window.open('https://wa.me/' + document.getElementById('cPhone').value.replace(/\D/g,'') + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+liveUpdate();
+</script>
+</body>
+</html>

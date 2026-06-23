@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Thank You Card — Yeni Graphics</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+<style>
+:root{--teal:#15b6a6;--coral:#fb6f5d;--navy:#123b56;--cream:#f4efe7;--ink:#161824;--soft:#4a4d5e;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
+header{background:linear-gradient(135deg,var(--navy),#0d6f6c);color:#fff;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;}
+header h1{font-family:'Bricolage Grotesque';font-size:1.4rem;font-weight:700;}
+header p{opacity:.75;font-size:.85rem;margin-top:3px;}
+.layout{display:grid;grid-template-columns:380px 1fr;gap:28px;padding:28px;max-width:1100px;margin:0 auto;}
+.form-panel{background:#fff;border-radius:20px;padding:28px;box-shadow:0 8px 28px -8px rgba(22,24,36,.12);height:fit-content;}
+.form-panel h2{font-family:'Bricolage Grotesque';font-size:1.1rem;font-weight:700;margin-bottom:20px;color:var(--navy);}
+.field{margin-bottom:14px;}
+.field label{display:block;font-weight:600;font-size:.85rem;margin-bottom:5px;}
+.field input,.field select,.field textarea{
+  width:100%;padding:10px 13px;border-radius:10px;
+  border:1.6px solid rgba(22,24,36,.14);font-family:'Hanken Grotesk';
+  font-size:.93rem;color:var(--ink);background:#fafafa;transition:border-color .2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);}
+.field textarea{resize:vertical;min-height:70px;}
+.btn{width:100%;padding:12px;border-radius:50px;border:none;font-weight:700;font-size:.93rem;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;}
+.btn-coral{background:var(--coral);color:#fff;}
+.btn-coral:hover{background:#e8523f;transform:translateY(-2px);}
+.btn-wa{background:#25d366;color:#fff;}
+.btn-wa:hover{background:#1da851;transform:translateY(-2px);}
+.btn-outline{background:transparent;border:1.6px solid rgba(22,24,36,.18);color:var(--ink);}
+.btn-outline:hover{border-color:var(--ink);transform:translateY(-2px);}
+.btn-row{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+
+/* ── Card Preview ── */
+.preview-wrap{display:flex;flex-direction:column;align-items:center;gap:20px;}
+.card-shell{
+  width:100%;max-width:560px;
+  background:#fff;border-radius:28px;
+  padding:4px;
+  background:linear-gradient(135deg,var(--teal),var(--coral));
+  box-shadow:0 30px 60px -20px rgba(22,24,36,.3);
+}
+.card-inner{
+  background:#fff;border-radius:25px;
+  padding:44px 40px 40px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.card-inner::before{
+  content:"";position:absolute;top:-40px;right:-40px;
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(251,111,93,.12),transparent 65%);
+}
+.card-inner::after{
+  content:"";position:absolute;bottom:-40px;left:-40px;
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(21,182,166,.1),transparent 65%);
+}
+.card-emoji{font-size:3rem;margin-bottom:12px;position:relative;z-index:1;}
+.card-title{
+  font-family:'Bricolage Grotesque';font-size:clamp(1.8rem,4vw,2.4rem);
+  font-weight:700;color:var(--ink);margin-bottom:6px;position:relative;z-index:1;
+}
+.card-name{color:var(--coral);}
+.card-body{
+  font-size:1.02rem;color:var(--soft);line-height:1.75;
+  margin:20px 0 26px;max-width:38ch;margin-left:auto;margin-right:auto;
+  position:relative;z-index:1;
+}
+.card-note{
+  font-size:.94rem;color:var(--ink);font-style:italic;
+  background:rgba(21,182,166,.07);border-left:3px solid var(--teal);
+  padding:10px 16px;border-radius:0 10px 10px 0;
+  margin-bottom:24px;text-align:left;
+  position:relative;z-index:1;
+}
+.card-sig{
+  font-family:'Bricolage Grotesque';font-size:1.08rem;font-weight:700;
+  color:var(--navy);margin-bottom:16px;position:relative;z-index:1;
+}
+.card-links{
+  display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+  position:relative;z-index:1;
+}
+.card-link{
+  display:flex;align-items:center;gap:6px;
+  font-size:.85rem;font-weight:600;color:var(--soft);
+  text-decoration:none;padding:7px 14px;border-radius:50px;
+  background:rgba(22,24,36,.05);transition:.2s;
+}
+.card-link:hover{background:var(--coral);color:#fff;}
+
+.copied-msg{
+  font-size:.82rem;color:#2e7d32;font-weight:600;
+  display:none;text-align:center;margin-top:8px;
+}
+
+@media(max-width:860px){.layout{grid-template-columns:1fr;}}
+@media print{
+  header,.no-print{display:none !important;}
+  body{background:#fff;}
+  .layout{grid-template-columns:1fr;padding:0;}
+  .form-panel{display:none;}
+  .preview-wrap{padding:0;}
+  .card-shell{box-shadow:none;max-width:100%;}
+}
+</style>
+</head>
+<body>
+<header class="no-print">
+  <div>
+    <h1><i class="fa-solid fa-heart"></i> Thank You Card Generator</h1>
+    <p>Yeni Graphics · Send gratitude after every completed job</p>
+  </div>
+  <a href="https://yeni-graphics.vercel.app" style="color:rgba(255,255,255,.7);font-size:.88rem;">← Back to portfolio</a>
+</header>
+
+<div class="layout">
+  <!-- FORM -->
+  <div class="form-panel no-print">
+    <h2>Card Details</h2>
+
+    <div class="field">
+      <label>Client Name</label>
+      <input type="text" id="tName" placeholder="e.g. John" oninput="updateCard()"/>
+    </div>
+    <div class="field">
+      <label>Design Type Delivered</label>
+      <select id="tType" onchange="updateCard()">
+        <option value="design">choose design type</option>
+        <option value="business flyer">Business Flyer</option>
+        <option value="church program flyer">Church Program</option>
+        <option value="birthday design">Birthday Design</option>
+        <option value="menu and price list">Menu / Price List</option>
+        <option value="social media design">Social Media Design</option>
+        <option value="logo and branding">Logo &amp; Branding</option>
+        <option value="design">Other Design</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Personal Note (optional)</label>
+      <textarea id="tNote" placeholder="e.g. Looking forward to working with you again soon!" oninput="updateCard()"></textarea>
+    </div>
+    <div class="field">
+      <label>Client's WhatsApp Number</label>
+      <input type="tel" id="tPhone" placeholder="e.g. 08031234567"/>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-coral" onclick="updateCard()"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate Card</button>
+      <button class="btn btn-wa" onclick="sendWA()"><i class="fa-brands fa-whatsapp"></i> Send on WhatsApp</button>
+      <button class="btn btn-outline" onclick="copyText()"><i class="fa-regular fa-copy"></i> Copy as Text</button>
+    </div>
+    <div class="copied-msg" id="copiedMsg">✅ Copied to clipboard!</div>
+  </div>
+
+  <!-- CARD PREVIEW -->
+  <div class="preview-wrap">
+    <div class="card-shell">
+      <div class="card-inner">
+        <div class="card-emoji">🙏</div>
+        <div class="card-title">Thank you, <span class="card-name" id="previewName">Friend</span>!</div>
+        <div class="card-body" id="previewBody">
+          It was a pleasure creating your design. I hope it brings your business exactly the attention it deserves!
+        </div>
+        <div class="card-note" id="previewNote" style="display:none;"></div>
+        <div class="card-sig">— Samuel · Yeni Graphics</div>
+        <div class="card-links">
+          <a href="https://wa.me/2348054965524" class="card-link"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          <a href="https://yeni-graphics.vercel.app" class="card-link"><i class="fa-solid fa-globe"></i> Portfolio</a>
+          <a href="https://www.instagram.com/omoyeni_samuel" class="card-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function updateCard(){
+  const name = document.getElementById('tName').value.trim() || 'Friend';
+  const type = document.getElementById('tType').value || 'design';
+  const note = document.getElementById('tNote').value.trim();
+
+  document.getElementById('previewName').textContent = name;
+  document.getElementById('previewBody').textContent =
+    `It was a pleasure creating your ${type}. I hope it brings your business exactly the attention it deserves! 😊`;
+
+  const noteEl = document.getElementById('previewNote');
+  if(note){
+    noteEl.textContent = `"${note}"`;
+    noteEl.style.display = 'block';
+  } else {
+    noteEl.style.display = 'none';
+  }
+}
+
+function getPlainText(){
+  const name = document.getElementById('tName').value.trim() || 'Friend';
+  const type = document.getElementById('tType').value || 'design';
+  const note = document.getElementById('tNote').value.trim();
+  return `Hello ${name}! 🙏\n\nThank you so much for choosing Yeni Graphics!\n\nIt was a pleasure creating your ${type}. I hope it brings your business exactly the attention it deserves! 😊\n`
+    + (note ? `\n"${note}"\n` : '')
+    + `\n— Samuel\nYeni Graphics\n📱 +234 805 496 5524\n🌐 https://yeni-graphics.vercel.app`;
+}
+
+function copyText(){
+  navigator.clipboard.writeText(getPlainText()).then(()=>{
+    const msg = document.getElementById('copiedMsg');
+    msg.style.display = 'block';
+    setTimeout(()=> msg.style.display='none', 2500);
+  });
+}
+
+function sendWA(){
+  const phone = document.getElementById('tPhone').value.replace(/\D/g,'');
+  const num = phone.startsWith('0') ? '234' + phone.slice(1) : phone || '2348054965524';
+  window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(getPlainText()), '_blank');
+}
+
+updateCard();
+</script>
+</body>
+</html>

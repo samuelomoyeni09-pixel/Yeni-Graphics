@@ -79,6 +79,23 @@ tr:hover td{background:rgba(21,182,166,.04);}
   table{font-size:.82rem;}
   th,td{padding:10px 10px;}
 }
+.reminder-bar{
+  display:flex;align-items:center;gap:12px;padding:14px 28px;
+  background:linear-gradient(135deg,#e65100,#fb6f5d);color:#fff;
+  font-weight:600;font-size:.92rem;flex-wrap:wrap;
+}
+.reminder-icon{font-size:1.2rem;}
+.reminder-btn{
+  padding:7px 16px;border-radius:50px;border:1.5px solid rgba(255,255,255,.5);
+  background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:.82rem;cursor:pointer;
+  margin-left:auto;transition:.2s;
+}
+.reminder-btn:hover{background:rgba(255,255,255,.35);}
+.reminder-close{
+  width:28px;height:28px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.2);color:#fff;font-size:.9rem;cursor:pointer;
+}
+tr.due-today td{background:rgba(251,111,93,.07);}
 </style>
 </head>
 <body>
@@ -99,6 +116,13 @@ tr:hover td{background:rgba(21,182,166,.04);}
   <div class="stat s-contacted"><div class="n" id="s-contacted">0</div><div class="l">Contacted</div></div>
   <div class="stat s-replied"><div class="n" id="s-replied">0</div><div class="l">Replied</div></div>
   <div class="stat s-converted"><div class="n" id="s-converted">0</div><div class="l">Converted 💰</div></div>
+</div>
+
+<div class="reminder-bar" id="reminderBar" style="display:none">
+  <span class="reminder-icon">🔔</span>
+  <span id="reminderText"></span>
+  <button onclick="filterDueToday()" class="reminder-btn">View them</button>
+  <button onclick="document.getElementById('reminderBar').style.display='none'" class="reminder-close">✕</button>
 </div>
 
 <div class="main">
@@ -223,10 +247,12 @@ function render(){
   if(!filtered.length){ tbody.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display='none';
 
+  const todayStr = new Date().toISOString().split('T')[0];
   tbody.innerHTML = filtered.map((l,i) => {
+    const isDue = l.followup && l.followup <= todayStr && l.status !== 'converted' && l.status !== 'lost';
     const followup = l.followup ? `<span style="font-size:.82rem;color:${new Date(l.followup)<new Date()?'#c62828':'#2e7d32'}">${l.followup}</span>` : '—';
     const waLink = l.phone ? `<button class="act-btn act-wa" onclick="window.open('https://wa.me/234${l.phone.replace(/^0/,'').replace(/\s/g,'')}','_blank')" title="Open WhatsApp">💬</button>` : '';
-    return `<tr>
+    return `<tr${isDue ? ' class="due-today"' : ''}>
       <td style="color:var(--soft);font-size:.82rem">${i+1}</td>
       <td><strong>${l.name}</strong>${l.contact?`<br><span style="font-size:.8rem;color:var(--soft)">${l.contact}</span>`:''}</td>
       <td style="font-size:.85rem">${l.type||'—'}</td>
@@ -242,6 +268,34 @@ function render(){
     </tr>`;
   }).join('');
   updateStats();
+  checkReminders();
+}
+
+function checkReminders(){
+  const today = new Date().toISOString().split('T')[0];
+  const due = leads.filter(l =>
+    l.followup && l.followup <= today &&
+    l.status !== 'converted' && l.status !== 'lost'
+  );
+  const bar = document.getElementById('reminderBar');
+  const txt = document.getElementById('reminderText');
+  if(due.length > 0){
+    txt.textContent = due.length === 1
+      ? '1 lead needs a follow-up today!'
+      : due.length + ' leads need follow-ups today or are overdue!';
+    bar.style.display = 'flex';
+  } else {
+    bar.style.display = 'none';
+  }
+}
+
+function filterDueToday(){
+  currentFilter = 'all';
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('active'));
+  document.querySelector('.fb').classList.add('active');
+  document.getElementById('searchBox').value = '';
+  render();
+  document.getElementById('reminderBar').style.display = 'none';
 }
 
 function setFilter(f, btn){

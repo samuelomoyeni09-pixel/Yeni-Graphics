@@ -81,6 +81,26 @@ body{
 }
 .socials a:hover{background:var(--coral);color:#fff;}
 .footer{margin-top:20px;font-size:.78rem;color:#9a9daa;}
+.order-toggle{
+  width:100%;padding:13px 20px;border-radius:14px;border:1.8px dashed rgba(22,24,36,.18);
+  background:transparent;color:var(--ink);font-weight:600;font-size:.95rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s;
+}
+.order-toggle:hover{border-color:var(--teal);color:var(--teal);}
+.order-box{display:none;margin-top:14px;text-align:left;}
+.order-box.open{display:block;}
+.order-note{font-size:.85rem;color:#4a4d5e;margin-bottom:12px;text-align:center;}
+.ofield{margin-bottom:10px;}
+.ofield input,.ofield select,.ofield textarea{
+  width:100%;padding:11px 14px;border-radius:11px;
+  border:1.6px solid rgba(22,24,36,.14);font-size:.93rem;
+  font-family:'Hanken Grotesk',sans-serif;background:#f9f6f1;
+  color:var(--ink);
+}
+.ofield textarea{resize:vertical;min-height:70px;}
+.ofield input:focus,.ofield select:focus,.ofield textarea:focus{
+  outline:none;border-color:#15b6a6;
+}
 </style>
 </head>
 <body>
@@ -117,6 +137,31 @@ body{
     </a>
   </div>
 
+  <div class="divider" style="margin:22px 0 18px;"></div>
+  <button class="order-toggle" id="orderToggle" onclick="toggleOrder()">
+    <span>📝</span> Place a Quick Order
+  </button>
+  <div class="order-box" id="orderBox">
+    <p class="order-note">Fill this in and I'll get your details on WhatsApp instantly.</p>
+    <div class="ofield"><input id="oName" type="text" placeholder="Your name" required/></div>
+    <div class="ofield"><input id="oPhone" type="tel" placeholder="Your WhatsApp number"/></div>
+    <div class="ofield">
+      <select id="oType">
+        <option value="" disabled selected>Design type</option>
+        <option>Business Flyer</option>
+        <option>Church Program</option>
+        <option>Birthday Design</option>
+        <option>Menu / Price List</option>
+        <option>Logo / Branding</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="ofield"><textarea id="oDetails" rows="3" placeholder="Any extra details (colors, deadline, text…)"></textarea></div>
+    <button class="link-btn btn-wa" onclick="sendOrder()" style="width:100%;margin-top:4px;">
+      <i class="fa-brands fa-whatsapp"></i> Send Order on WhatsApp
+    </button>
+  </div>
+
   <div class="socials">
     <a href="https://www.instagram.com/omoyeni_samuel" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
     <a href="https://www.facebook.com/samuel.omoyeni.946" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
@@ -126,5 +171,26 @@ body{
 
   <div class="footer">© 2026 Yeni Graphics · samuelomoyeni.09@gmail.com</div>
 </div>
+<script>
+function toggleOrder(){
+  const box = document.getElementById('orderBox');
+  const btn = document.getElementById('orderToggle');
+  box.classList.toggle('open');
+  btn.textContent = box.classList.contains('open') ? '✕  Close Form' : '📝  Place a Quick Order';
+}
+function sendOrder(){
+  const name    = document.getElementById('oName').value.trim();
+  const phone   = document.getElementById('oPhone').value.trim();
+  const type    = document.getElementById('oType').value;
+  const details = document.getElementById('oDetails').value.trim();
+  if (!name){ alert('Please enter your name.'); return; }
+  const msg = "Hi Samuel! I'd like to place an order 🎨\n\n"
+    + "Name: " + name + "\n"
+    + (phone ? "Phone: " + phone + "\n" : "")
+    + (type  ? "Design type: " + type + "\n" : "")
+    + (details ? "Details: " + details : "");
+  window.open('https://wa.me/2348054965524?text=' + encodeURIComponent(msg), '_blank');
+}
+</script>
 </body>
 </html>
