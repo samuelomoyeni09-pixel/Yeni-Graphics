@@ -15,6 +15,16 @@
 <meta name="twitter:title" content="Yeni Graphics — Bold Flyer & Branding Design"/>
 <meta name="twitter:description" content="Professional flyer, branding and visual design. Starting from ₦5,000. Delivered in 24hrs."/>
 <link rel="canonical" href="https://yeni-graphics.vercel.app/"/>
+<!-- PWA -->
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#123b56"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Yeni Graphics"/>
+<link rel="apple-touch-icon" href="images/logo.png"/>
+<!-- Google Analytics — replace G-XXXXXXXXXX with your ID from analytics.google.com -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -23,6 +33,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
+
+<!-- Loading screen -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">YG</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-sub">Yeni Graphics</div>
+  </div>
+</div>
 
 <!-- Custom cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
@@ -41,6 +60,7 @@
       <a href="#pricing">Pricing</a>
       <a href="#about">About</a>
       <a href="#testimonials">Reviews</a>
+      <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-cta">
@@ -59,7 +79,7 @@
 
     <div class="hero-top">
       <div class="hero-text">
-        <div class="hero-eyebrow"><span class="dot"></span> Graphic Designer · Open for jobs</div>
+        <div class="hero-eyebrow"><span class="dot avail-dot"></span> Graphic Designer · <span class="avail-status">Open for jobs</span></div>
         <h1>Designs that make your brand <span class="hl">stand out</span>.</h1>
         <p>I'm Samuel Omoyeni — the designer behind Yeni Graphics. I create bold flyers, branding and visuals for businesses, churches and events.</p>
         <div class="hero-actions">
@@ -478,6 +498,53 @@
   </div>
 </section>
 
+<!-- ================= FAQ ================= -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="tag">FAQ</span>
+        <h2>Questions people <span class="u">ask</span></h2>
+      </div>
+      <p>Everything you need to know before placing an order.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">How long does a design take? <span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Most designs are delivered within 24 hours of receiving your details and payment. Complex designs like logos or full branding may take 2–3 days.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">What information do you need from me to start? <span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Just tell me what the design is for, the text you want included, any colours or photos, and your deadline. You can send all of this on WhatsApp — I'll guide you through it.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I request changes after I receive the design? <span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Yes! Basic includes 1 free revision, Standard includes 3, and Premium includes unlimited revisions. I work until you are fully satisfied with the result.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">What format will my design be delivered in? <span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Designs are delivered as high-resolution JPG or PNG files, sent straight to your WhatsApp. Premium clients also receive a print-ready version.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I pay? <span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Payment is made via bank transfer or WhatsApp Pay before delivery. Once your order is confirmed, I'll send you the account details.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Do you design logos? <span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Yes! Logo and branding design is one of my services. Message me for a custom quote as pricing depends on the complexity of the brand identity you need.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Can you work with clients outside Nigeria? <span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Absolutely. I work with clients worldwide. Everything is handled via WhatsApp and files are delivered digitally, so location is never a barrier.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">What makes Yeni Graphics different? <span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Fast turnaround, personal attention, and designs built for impact. I don't just make things look pretty — I make designs that get your business noticed and remembered.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CONTACT / ORDER FORM ================= -->
 <section class="contact" id="contact">
   <div class="wrap">
@@ -604,7 +671,7 @@
 </div>
 
 <!-- Floating WhatsApp -->
-<a href="https://wa.me/2348054965524" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/2348054965524?text=Hi%20Samuel!%20I%27d%20like%20to%20order%20a%20design%20%F0%9F%8E%A8" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <i class="fa-brands fa-whatsapp"></i>
   <span class="wa-tooltip">Chat on WhatsApp</span>
 </a>

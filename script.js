@@ -288,3 +288,32 @@ if (cursorDot && window.matchMedia('(pointer:fine)').matches) {
     cursorRing.style.opacity = '1';
   });
 }
+
+/* =====================================================
+   LOADING SCREEN
+   ===================================================== */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.getElementById('loader');
+    if (loader) loader.classList.add('done');
+  }, 1600);
+});
+
+/* =====================================================
+   FAQ ACCORDION
+   ===================================================== */
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* =====================================================
+   PWA SERVICE WORKER
+   ===================================================== */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}

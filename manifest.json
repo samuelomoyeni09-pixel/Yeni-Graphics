@@ -1,0 +1,40 @@
+{
+  "name": "Yeni Graphics — Samuel Omoyeni",
+  "short_name": "Yeni Graphics",
+  "description": "Professional flyer, branding and visual design for businesses, churches and events. Starting from ₦5,000. Delivered in 24hrs.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4efe7",
+  "theme_color": "#123b56",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Order a Design",
+      "short_name": "Order",
+      "description": "Place a new design order",
+      "url": "/#contact",
+      "icons": [{"src": "images/logo.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "View Portfolio",
+      "short_name": "Portfolio",
+      "description": "Browse design work",
+      "url": "/#work",
+      "icons": [{"src": "images/logo.png", "sizes": "192x192"}]
+    }
+  ]
+}
