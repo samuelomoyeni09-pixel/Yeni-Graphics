@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Samuel Omoyeni | Yeni Graphics</title>
+<meta name="description" content="Yeni Graphics — Bold flyer, branding and visual design by Samuel Omoyeni. Starting from ₦3,500."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+<style>
+:root{--teal:#15b6a6;--coral:#fb6f5d;--navy:#123b56;--cream:#f4efe7;--ink:#161824;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Hanken Grotesk',sans-serif;
+  background:linear-gradient(160deg,#0c2a3d 0%,#0d6f6c 55%,#e65100 100%);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:28px 16px;
+}
+.card{
+  background:rgba(255,255,255,.97);
+  border-radius:28px;
+  padding:36px 28px;
+  max-width:420px;
+  width:100%;
+  text-align:center;
+  box-shadow:0 40px 80px -24px rgba(0,0,0,.5);
+}
+.avatar{
+  width:96px;height:96px;border-radius:50%;
+  object-fit:cover;border:4px solid #fff;
+  box-shadow:0 8px 24px -8px rgba(0,0,0,.35);
+  margin:0 auto 16px;display:block;
+}
+.name{font-family:'Bricolage Grotesque';font-size:1.55rem;font-weight:700;color:var(--ink);}
+.brand{color:var(--teal);font-size:.92rem;font-weight:600;margin-top:4px;}
+.tagline{
+  margin:14px auto;max-width:28ch;
+  color:#4a4d5e;font-size:.93rem;line-height:1.6;
+}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0;}
+.chip{
+  font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:6px 13px;border-radius:50px;
+  background:rgba(21,182,166,.12);color:#0e7d77;
+}
+.divider{height:1px;background:rgba(22,24,36,.08);margin:18px 0;}
+.price{
+  font-family:'Bricolage Grotesque';font-size:1.05rem;font-weight:700;
+  color:var(--navy);margin-bottom:20px;
+}
+.price span{color:var(--coral);}
+.links{display:flex;flex-direction:column;gap:12px;}
+.link-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 20px;border-radius:14px;
+  font-weight:600;font-size:.97rem;text-decoration:none;
+  transition:transform .22s ease,box-shadow .22s ease;
+}
+.link-btn:hover{transform:translateY(-3px);}
+.btn-wa{background:#25d366;color:#fff;box-shadow:0 8px 22px -8px rgba(37,211,102,.6);}
+.btn-wa:hover{box-shadow:0 14px 28px -8px rgba(37,211,102,.75);}
+.btn-portfolio{background:var(--navy);color:#fff;box-shadow:0 8px 22px -8px rgba(18,59,86,.5);}
+.btn-portfolio:hover{box-shadow:0 14px 28px -8px rgba(18,59,86,.65);}
+.btn-ig{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af);color:#fff;box-shadow:0 8px 22px -8px rgba(221,42,123,.45);}
+.btn-ig:hover{box-shadow:0 14px 28px -8px rgba(221,42,123,.6);}
+.btn-email{background:var(--cream);color:var(--ink);border:1.5px solid rgba(22,24,36,.12);}
+.btn-email:hover{background:#ede8e0;}
+.socials{display:flex;justify-content:center;gap:14px;margin-top:22px;}
+.socials a{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(22,24,36,.07);color:var(--ink);
+  display:grid;place-items:center;font-size:1rem;
+  transition:.2s;text-decoration:none;
+}
+.socials a:hover{background:var(--coral);color:#fff;}
+.footer{margin-top:20px;font-size:.78rem;color:#9a9daa;}
+</style>
+</head>
+<body>
+<div class="card">
+  <img src="images/yeni.png" alt="Samuel Omoyeni" class="avatar"/>
+  <div class="name">Samuel Omoyeni</div>
+  <div class="brand">Yeni Graphics · Graphic Designer 🇳🇬</div>
+  <p class="tagline">Bold flyers, branding & visuals for businesses, churches and events.</p>
+
+  <div class="chips">
+    <span class="chip">Business Flyers</span>
+    <span class="chip">Church Graphics</span>
+    <span class="chip">Birthdays</span>
+    <span class="chip">Menus</span>
+    <span class="chip">Social Media</span>
+    <span class="chip">Logo & Branding</span>
+  </div>
+
+  <div class="divider"></div>
+  <div class="price">Starting from <span>₦3,500</span> · Delivered in 24hrs 🚀</div>
+
+  <div class="links">
+    <a href="https://wa.me/2348054965524?text=Hi%20Samuel!%20I%27d%20like%20to%20order%20a%20design." class="link-btn btn-wa" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> Order on WhatsApp
+    </a>
+    <a href="https://samuelomoyeni09-pixel.github.io/Yeni-Graphics" class="link-btn btn-portfolio" target="_blank">
+      <i class="fa-solid fa-briefcase"></i> View My Portfolio
+    </a>
+    <a href="https://www.instagram.com/omoyeni_samuel" class="link-btn btn-ig" target="_blank">
+      <i class="fa-brands fa-instagram"></i> Follow on Instagram
+    </a>
+    <a href="mailto:samuelomoyeni.09@gmail.com" class="link-btn btn-email">
+      <i class="fa-solid fa-envelope"></i> Send an Email
+    </a>
+  </div>
+
+  <div class="socials">
+    <a href="https://www.instagram.com/omoyeni_samuel" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.facebook.com/samuel.omoyeni.946" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+    <a href="https://wa.me/2348054965524" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="https://www.tiktok.com/@yenisax" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+  </div>
+
+  <div class="footer">© 2026 Yeni Graphics · samuelomoyeni.09@gmail.com</div>
+</div>
+</body>
+</html>
