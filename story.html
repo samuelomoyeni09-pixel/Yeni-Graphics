@@ -113,6 +113,20 @@ header a:hover{color:#fff;}
 </div>
 
 <script>
+function roundedRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y,     x + w, y + r,     r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x,     y + h, x,     y + h - r, r);
+  ctx.lineTo(x, y + r);
+  ctx.arcTo(x,     y,     x + r, y,         r);
+  ctx.closePath();
+}
+
 function drawCard(canvas, scale) {
   const W = 1080 * scale;
   const H = 1920 * scale;
@@ -201,8 +215,7 @@ function drawCard(canvas, scale) {
   // Coral pill — STARTING FROM
   const pillW = 700 * s, pillH = 80 * s;
   const pillX = (W - pillW) / 2, pillY = 1180 * s;
-  ctx.beginPath();
-  ctx.roundRect(pillX, pillY, pillW, pillH, 40 * s);
+  roundedRect(ctx, pillX, pillY, pillW, pillH, 40 * s);
   ctx.fillStyle = '#fb6f5d';
   ctx.fill();
   ctx.font = `bold ${40 * s}px Arial, sans-serif`;
@@ -227,8 +240,7 @@ function drawCard(canvas, scale) {
   // URL box
   const boxW = 800 * s, boxH = 90 * s;
   const boxX = (W - boxW) / 2, boxY = 1470 * s;
-  ctx.beginPath();
-  ctx.roundRect(boxX, boxY, boxW, boxH, 18 * s);
+  roundedRect(ctx, boxX, boxY, boxW, boxH, 18 * s);
   ctx.fillStyle = 'rgba(0,0,0,0.25)';
   ctx.fill();
   ctx.font = `bold ${40 * s}px Arial, sans-serif`;
@@ -269,7 +281,9 @@ function downloadCard() {
   const link = document.createElement('a');
   link.download = 'YeniGraphics-Story.png';
   link.href = canvas.toDataURL('image/png');
+  document.body.appendChild(link);
   link.click();
+  document.body.removeChild(link);
 }
 </script>
 </body>

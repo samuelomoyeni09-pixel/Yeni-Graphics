@@ -61,6 +61,7 @@
     </a>
     <div class="nav-links" id="navLinks">
       <a href="#work">Work</a>
+      <a href="#websites">Websites</a>
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>
       <a href="#about">About</a>
@@ -84,9 +85,9 @@
 
     <div class="hero-top">
       <div class="hero-text">
-        <div class="hero-eyebrow"><span class="dot avail-dot"></span> Graphic Designer · <span class="avail-status">Open for jobs</span></div>
+        <div class="hero-eyebrow"><span class="dot avail-dot"></span> Graphic Designer &amp; Web Developer · <span class="avail-status">Open for jobs</span></div>
         <h1>Designs that make your brand <span class="hl">stand out</span>.</h1>
-        <p>I'm Samuel Omoyeni — the designer behind Yeni Graphics. I create bold flyers, branding and visuals for businesses, churches and events.</p>
+        <p>I'm Samuel Omoyeni — the designer behind Yeni Graphics. I create bold flyers, branding and visuals, and build professional websites for businesses, churches and events.</p>
         <div class="hero-actions">
           <a href="#work" class="btn btn-coral">View my work →</a>
           <a href="#contact" class="btn btn-light">Hire me</a>
@@ -269,6 +270,116 @@
   </div>
 </section>
 
+<!-- ================= WEBSITES ================= -->
+<section class="websites-sec" id="websites">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="tag">Web design</span>
+        <h2>Websites I've <span class="u">built</span></h2>
+      </div>
+      <p>I don't just design flyers — I build full professional websites too. Here are three live sites I've created.</p>
+    </div>
+
+    <div class="web-grid">
+
+      <!-- Yeni Graphics -->
+      <div class="web-card reveal">
+        <div class="bm-wrap">
+          <div class="bm-bar">
+            <div class="bm-dots"><span></span><span></span><span></span></div>
+            <div class="bm-url">yeni-graphics.vercel.app</div>
+          </div>
+          <div class="bm-body">
+            <iframe src="https://yeni-graphics.vercel.app" loading="lazy" title="Yeni Graphics Portfolio" scrolling="no"></iframe>
+            <div class="bm-overlay">
+              <a href="https://yeni-graphics.vercel.app" target="_blank" rel="noopener" class="btn btn-coral bm-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Site</a>
+            </div>
+          </div>
+        </div>
+        <div class="web-info">
+          <h3>Yeni Graphics — Portfolio</h3>
+          <p>My own portfolio site. Animations, gallery, dark mode, business tools & PWA.</p>
+        </div>
+      </div>
+
+      <!-- Gabby Shot -->
+      <div class="web-card reveal">
+        <div class="bm-wrap">
+          <div class="bm-bar">
+            <div class="bm-dots"><span></span><span></span><span></span></div>
+            <div class="bm-url">gabby-shot-portfolio.netlify.app</div>
+          </div>
+          <div class="bm-body">
+            <iframe src="https://gabby-shot-portfolio.netlify.app" loading="lazy" title="Gabby Shot Portfolio" scrolling="no"></iframe>
+            <div class="bm-overlay">
+              <a href="https://gabby-shot-portfolio.netlify.app" target="_blank" rel="noopener" class="btn btn-coral bm-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Site</a>
+            </div>
+          </div>
+        </div>
+        <div class="web-info">
+          <h3>Gabby Shot — Photography</h3>
+          <p>Premium photography & videography portfolio with 3D effects and GSAP animations.</p>
+        </div>
+      </div>
+
+      <!-- FlavourHouse -->
+      <div class="web-card reveal">
+        <div class="bm-wrap">
+          <div class="bm-bar">
+            <div class="bm-dots"><span></span><span></span><span></span></div>
+            <div class="bm-url">flavour-house-steel.vercel.app</div>
+          </div>
+          <div class="bm-body">
+            <iframe src="https://flavour-house-steel.vercel.app" loading="lazy" title="FlavourHouse Restaurant" scrolling="no"></iframe>
+            <div class="bm-overlay">
+              <a href="https://flavour-house-steel.vercel.app" target="_blank" rel="noopener" class="btn btn-coral bm-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Site</a>
+            </div>
+          </div>
+        </div>
+        <div class="web-info">
+          <h3>FlavourHouse — Restaurant</h3>
+          <p>Luxury Nigerian restaurant site with menu tabs, gallery and WhatsApp reservations.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="web-cta reveal">
+      Want a website like these? <a href="#contact">Order one →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.websites-sec{padding:80px 0;background:var(--ink,#161824);}
+.websites-sec .sec-head{color:#fff;}
+.websites-sec .sec-head h2{color:#fff;}
+.websites-sec .sec-head p{color:rgba(255,255,255,.55);}
+.websites-sec .u{text-decoration-color:var(--coral,#fb6f5d);}
+.web-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;margin-bottom:40px;}
+.web-card{opacity:0;translate:0 28px;transition:opacity .6s,translate .6s;}
+.web-card.reveal{opacity:1;translate:0 0;}
+.bm-wrap{background:#0c1a26;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px -16px rgba(0,0,0,.6);margin-bottom:16px;}
+.bm-bar{background:#1a2f42;padding:10px 14px;display:flex;align-items:center;gap:10px;}
+.bm-dots{display:flex;gap:6px;}
+.bm-dots span{width:11px;height:11px;border-radius:50%;}
+.bm-dots span:nth-child(1){background:#ff5f57;}
+.bm-dots span:nth-child(2){background:#febc2e;}
+.bm-dots span:nth-child(3){background:#28c840;}
+.bm-url{flex:1;background:rgba(255,255,255,.07);border-radius:6px;padding:5px 12px;color:rgba(255,255,255,.4);font-size:.75rem;font-family:'Hanken Grotesk',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bm-body{position:relative;height:260px;overflow:hidden;}
+.bm-body iframe{width:200%;height:200%;border:none;transform:scale(.5);transform-origin:top left;pointer-events:none;}
+.bm-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(12,26,38,.92) 100%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:18px;opacity:0;transition:.3s;}
+.web-card:hover .bm-overlay{opacity:1;}
+.bm-btn{padding:10px 22px;font-size:.85rem;}
+.web-info h3{font-family:'Bricolage Grotesque',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:5px;}
+.web-info p{font-size:.87rem;color:rgba(255,255,255,.45);line-height:1.6;}
+.web-cta{text-align:center;color:rgba(255,255,255,.5);font-size:.95rem;}
+.web-cta a{color:var(--teal,#15b6a6);font-weight:700;}
+.web-cta a:hover{color:#fff;}
+</style>
+
 <!-- ================= SERVICES ================= -->
 <section class="services" id="services">
   <div class="wrap">
@@ -316,6 +427,12 @@
         <div class="svc-icon">✦</div>
         <h3>Logo &amp; Branding</h3>
         <p>Logos and brand visuals that give your business a clear, memorable identity.</p>
+      </div>
+      <div class="svc-card reveal">
+        <span class="svc-num">07</span>
+        <div class="svc-icon">⬡</div>
+        <h3>Website Design</h3>
+        <p>Professional, animated portfolio and business websites — mobile-ready, free hosting, WhatsApp integrated.</p>
       </div>
     </div>
   </div>
@@ -640,6 +757,7 @@
       <div>
         <h4>Navigate</h4>
         <a href="#work">Work</a>
+        <a href="#websites">Websites</a>
         <a href="#services">Services</a>
         <a href="#pricing">Pricing</a>
         <a href="#about">About</a>
@@ -651,6 +769,7 @@
         <a href="#services">Church Graphics</a>
         <a href="#services">Birthday Designs</a>
         <a href="#services">Logo &amp; Branding</a>
+        <a href="#websites">Website Design</a>
       </div>
       <div>
         <h4>Get in touch</h4>

@@ -1,0 +1,15 @@
+{
+  "rewrites": [
+    { "source": "/link.jpg",         "destination": "/link.html" },
+    { "source": "/brief.jpg",        "destination": "/brief.html" },
+    { "source": "/invoice.jpg",      "destination": "/invoice.html" },
+    { "source": "/receipt.jpg",      "destination": "/receipt.html" },
+    { "source": "/thankyou.jpg",     "destination": "/thankyou.html" },
+    { "source": "/pricelist.jpg",    "destination": "/pricelist.html" },
+    { "source": "/templates.jpg",    "destination": "/templates.html" },
+    { "source": "/lead_tracker.jpg", "destination": "/lead_tracker.html" },
+    { "source": "/story.jpg",        "destination": "/story.html" },
+    { "source": "/watermark.jpg",    "destination": "/watermark.html" },
+    { "source": "/gig.jpg",          "destination": "/gig.html" }
+  ]
+}

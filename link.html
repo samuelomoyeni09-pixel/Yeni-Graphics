@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Samuel Omoyeni | Yeni Graphics</title>
 <meta name="description" content="Yeni Graphics — Bold flyer, branding and visual design by Samuel Omoyeni. Starting from ₦5,000."/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
@@ -81,6 +82,14 @@ body{
 }
 .socials a:hover{background:var(--coral);color:#fff;}
 .footer{margin-top:20px;font-size:.78rem;color:#9a9daa;}
+.btn-save{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin:18px auto 0;padding:13px 28px;border-radius:50px;border:none;
+  background:var(--teal);color:#fff;font-family:'Hanken Grotesk';font-weight:700;
+  font-size:.9rem;cursor:pointer;width:100%;
+  box-shadow:0 8px 22px -8px rgba(21,182,166,.55);transition:.22s;
+}
+.btn-save:hover{background:#0e9c8e;transform:translateY(-2px);}
 .order-toggle{
   width:100%;padding:13px 20px;border-radius:14px;border:1.8px dashed rgba(22,24,36,.18);
   background:transparent;color:var(--ink);font-weight:600;font-size:.95rem;cursor:pointer;
@@ -169,9 +178,33 @@ body{
     <a href="https://www.tiktok.com/@yenisax" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
   </div>
 
+  <button class="btn-save" onclick="downloadJpeg()">
+    <i class="fa-solid fa-image"></i> Save Card as Image
+  </button>
+
   <div class="footer">© 2026 Yeni Graphics · samuelomoyeni.09@gmail.com</div>
 </div>
 <script>
+function downloadJpeg(){
+  const btn = document.querySelector('.btn-save');
+  btn.textContent = 'Saving…';
+  btn.disabled = true;
+  html2canvas(document.querySelector('.card'), {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: null
+  }).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'YeniGraphics-Card.jpg';
+    link.href = canvas.toDataURL('image/jpeg', 0.95);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    btn.innerHTML = '<i class="fa-solid fa-image"></i> Save Card as Image';
+    btn.disabled = false;
+  });
+}
+
 function toggleOrder(){
   const box = document.getElementById('orderBox');
   const btn = document.getElementById('orderToggle');
