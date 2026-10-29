@@ -1,15 +1,16 @@
 {
-  "rewrites": [
-    { "source": "/link.jpg",         "destination": "/link.html" },
-    { "source": "/brief.jpg",        "destination": "/brief.html" },
-    { "source": "/invoice.jpg",      "destination": "/invoice.html" },
-    { "source": "/receipt.jpg",      "destination": "/receipt.html" },
-    { "source": "/thankyou.jpg",     "destination": "/thankyou.html" },
-    { "source": "/pricelist.jpg",    "destination": "/pricelist.html" },
-    { "source": "/templates.jpg",    "destination": "/templates.html" },
-    { "source": "/lead_tracker.jpg", "destination": "/lead_tracker.html" },
-    { "source": "/story.jpg",        "destination": "/story.html" },
-    { "source": "/watermark.jpg",    "destination": "/watermark.html" },
-    { "source": "/gig.jpg",          "destination": "/gig.html" }
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/link.jpg",         "destination": "/link" },
+    { "source": "/brief.jpg",        "destination": "/brief" },
+    { "source": "/invoice.jpg",      "destination": "/invoice" },
+    { "source": "/receipt.jpg",      "destination": "/receipt" },
+    { "source": "/thankyou.jpg",     "destination": "/thankyou" },
+    { "source": "/pricelist.jpg",    "destination": "/pricelist" },
+    { "source": "/templates.jpg",    "destination": "/templates" },
+    { "source": "/lead_tracker.jpg", "destination": "/lead_tracker" },
+    { "source": "/story.jpg",        "destination": "/story" },
+    { "source": "/watermark.jpg",    "destination": "/watermark" },
+    { "source": "/gig.jpg",          "destination": "/gig" }
   ]
 }

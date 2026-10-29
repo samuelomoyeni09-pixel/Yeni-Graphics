@@ -1,7 +1,6 @@
-const CACHE_NAME = 'yg-cache-v1';
+const CACHE_NAME = 'yg-cache-v2';
 const STATIC_ASSETS = [
   '/',
-  '/index.html',
   '/style.css',
   '/script.js',
   '/images/logo.png',
@@ -26,6 +25,11 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+  // pages: always try the network first so visitors see updates; cached copy only when offline
+  if (e.request.mode === 'navigate') {
+    e.respondWith(fetch(e.request).catch(() => caches.match(e.request).then(r => r || caches.match('/'))));
+    return;
+  }
   e.respondWith(
     caches.match(e.request).then(cached => {
       const network = fetch(e.request).then(res => {
