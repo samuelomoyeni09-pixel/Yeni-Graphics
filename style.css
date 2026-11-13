@@ -668,3 +668,33 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.62);padding:58px 0 32
 .faq-a p{padding:0 26px 22px;font-size:.97rem;color:var(--ink-soft);line-height:1.7;}
 [data-theme="dark"] .faq-item{background:var(--cream-card);}
 [data-theme="dark"] .faq-q{color:var(--ink);}
+
+/* ══════════════════════════════════════════
+   PHONE PASS (2026-11-13): tap targets, layout fixes
+══════════════════════════════════════════ */
+@media(max-width:680px){
+  /* menu button: the only navigation on phones, so a full 44px target */
+  .burger{width:44px;height:44px;padding:10px;align-items:center;justify-content:center;}
+  /* hero badge wraps cleanly instead of squeezing "Open for jobs" into a column */
+  .hero-eyebrow{display:block;line-height:1.7;border-radius:18px;}
+  .hero-eyebrow .dot{display:inline-block;vertical-align:middle;margin:-2px 8px 0 0;}
+  .avail-status{white-space:nowrap;}
+  /* flyers two per row: half the scrolling through 26 designs */
+  .gallery{grid-template-columns:repeat(2,1fr);gap:12px;}
+  .g-card{border-radius:14px;}
+  /* back-to-top sits above the WhatsApp button instead of on top of the text */
+  .back-top{left:auto;right:24px;bottom:88px;width:46px;height:46px;}
+  footer{padding-bottom:120px;}
+  /* footer + contact links: comfortable 40px+ tap rows */
+  .foot-grid a{padding:9px 0;margin-bottom:0;}
+  .socials{gap:12px;}
+  .socials a{width:44px;height:44px;}
+  .contact-info a, .form-alt a, .web-cta a{display:inline-block;padding:10px 0;}
+  /* nothing under 12px */
+  .logo small, .g-overlay .g-cat, .pop-badge{font-size:.75rem;}
+}
+/* Touch screens have no hover: show the "Visit Site" button on website cards all the time */
+@media(hover:none){
+  .bm-overlay{opacity:1;}
+  .bm-btn{min-height:44px;display:inline-flex;align-items:center;}
+}
