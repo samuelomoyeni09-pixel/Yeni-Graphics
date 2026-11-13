@@ -292,15 +292,14 @@ if (cursorDot && window.matchMedia('(pointer:fine)').matches) {
 /* =====================================================
    LOADING SCREEN
    ===================================================== */
-// The 'load' event waits for every flyer image and every live site preview, which on a slow
-// connection can take over a minute. Never keep visitors on the loader longer than 3.5s;
-// images keep loading in the background.
+// Images keep loading in the background after the loader goes.
 function hideLoader() {
   const loader = document.getElementById('loader');
   if (loader) loader.classList.add('done');
 }
-window.addEventListener('load', () => setTimeout(hideLoader, 1600));
-setTimeout(hideLoader, 3500);
+// This script runs once the page's HTML is ready, so show the page after a short beat
+// instead of waiting for every image on slow data.
+setTimeout(hideLoader, 800);
 
 /* =====================================================
    FAQ ACCORDION

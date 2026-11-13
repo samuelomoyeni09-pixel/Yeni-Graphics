@@ -1,4 +1,4 @@
-const CACHE_NAME = 'yg-cache-v3';
+const CACHE_NAME = 'yg-cache-v4';
 const STATIC_ASSETS = [
   '/',
   '/style.css',
