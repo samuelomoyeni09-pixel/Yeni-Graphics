@@ -292,12 +292,15 @@ if (cursorDot && window.matchMedia('(pointer:fine)').matches) {
 /* =====================================================
    LOADING SCREEN
    ===================================================== */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const loader = document.getElementById('loader');
-    if (loader) loader.classList.add('done');
-  }, 1600);
-});
+// The 'load' event waits for every flyer image and every live site preview, which on a slow
+// connection can take over a minute. Never keep visitors on the loader longer than 3.5s;
+// images keep loading in the background.
+function hideLoader() {
+  const loader = document.getElementById('loader');
+  if (loader) loader.classList.add('done');
+}
+window.addEventListener('load', () => setTimeout(hideLoader, 1600));
+setTimeout(hideLoader, 3500);
 
 /* =====================================================
    FAQ ACCORDION
